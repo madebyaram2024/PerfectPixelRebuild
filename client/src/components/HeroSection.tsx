@@ -82,10 +82,10 @@ export default function HeroSection() {
           
           <h1 className="text-6xl lg:text-8xl xl:text-9xl font-black mb-8 leading-[0.9] tracking-tight">
             <span className="block text-white drop-shadow-2xl">Stunning</span>
-            <span className="block bg-gradient-to-r from-primary via-yellow-300 to-primary bg-clip-text text-transparent drop-shadow-2xl">Websites</span> 
+            <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent drop-shadow-2xl">Websites</span> 
             <span className="block text-white drop-shadow-2xl">that Convert</span>
             <div className="mt-4">
-              <span className="inline-block bg-gradient-to-r from-primary to-yellow-400 text-black px-8 py-4 rounded-2xl text-4xl lg:text-6xl font-black shadow-2xl">
+              <span className="inline-block bg-gradient-to-r from-secondary to-accent text-black px-8 py-4 rounded-2xl text-4xl lg:text-6xl font-black shadow-2xl">
                 Only $199
               </span>
             </div>
@@ -95,7 +95,7 @@ export default function HeroSection() {
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <Button 
-              className="group relative overflow-hidden bg-gradient-to-r from-primary via-yellow-400 to-primary text-black px-14 py-6 text-xl font-black h-auto rounded-full shadow-2xl hover:shadow-primary/60 transform hover:scale-105 transition-all duration-500 border-2 border-yellow-300"
+              className="group relative overflow-hidden bg-gradient-to-r from-primary via-secondary to-accent text-black px-14 py-6 text-xl font-black h-auto rounded-full shadow-2xl hover:shadow-primary/60 transform hover:scale-105 transition-all duration-500 border-2 border-primary"
               onClick={() => {
                 handleGetSiteClick();
                 window.open('https://buy.stripe.com/your-stripe-payment-link', '_blank');
@@ -105,7 +105,7 @@ export default function HeroSection() {
                 <span className="mr-3 text-2xl">🚀</span>
                 Start My Project
               </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </Button>
             <Button 
               variant="outline"
