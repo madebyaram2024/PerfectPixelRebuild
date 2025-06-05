@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 export default function ChatConversationSection() {
   const [visibleMessages, setVisibleMessages] = useState(0);
+  const [isMinimized, setIsMinimized] = useState(false);
 
   const messages = [
     {
@@ -135,9 +136,11 @@ export default function ChatConversationSection() {
 
   return (
     <div className="relative min-h-screen">
-      {/* Right Side Sticky Phone - Starts from top */}
-      <div className="hidden xl:block fixed right-8 top-24 z-40">
-        <div className="w-72 h-[520px] bg-black rounded-[2.5rem] p-2 shadow-2xl">
+      {/* Bottom Right Chat Phone */}
+      <div className="hidden xl:block fixed right-8 bottom-8 z-40">
+        <div className={`w-72 bg-black rounded-[2.5rem] p-2 shadow-2xl transition-all duration-300 ${
+          isMinimized ? 'h-16' : 'h-[520px]'
+        }`}>
           <div className="w-full h-full bg-white rounded-[2rem] overflow-hidden flex flex-col">
             {/* Phone Header */}
             <div className="bg-primary px-3 py-2 flex items-center justify-between">
@@ -150,10 +153,16 @@ export default function ChatConversationSection() {
                   <div className="text-white/80 text-xs">Online now</div>
                 </div>
               </div>
-              <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+              <button 
+                onClick={() => setIsMinimized(!isMinimized)}
+                className="text-white hover:text-gray-200 transition-colors text-lg font-bold"
+              >
+                {isMinimized ? '□' : '−'}
+              </button>
             </div>
 
-            {/* Chat Messages */}
+            {/* Chat Messages - Only show when not minimized */}
+            {!isMinimized && (
             <div className="flex-1 p-3 space-y-3 overflow-y-auto bg-gray-50">
               {messages.slice(0, visibleMessages).map((message) => (
                 <div
@@ -189,8 +198,10 @@ export default function ChatConversationSection() {
                 </div>
               )}
             </div>
+            )}
 
-            {/* Chat Input */}
+            {/* Chat Input - Only show when not minimized */}
+            {!isMinimized && (
             <div className="p-3 border-t bg-white">
               <div className="flex items-center space-x-2">
                 <div className="flex-1 bg-gray-100 rounded-full px-3 py-2 border">
@@ -201,10 +212,12 @@ export default function ChatConversationSection() {
                 </div>
               </div>
             </div>
+            )}
           </div>
         </div>
 
-        {/* Restart Button */}
+        {/* Restart Button - Only show when not minimized */}
+        {!isMinimized && (
         <div className="mt-3 text-center">
           <button 
             onClick={() => setVisibleMessages(0)}
@@ -213,6 +226,7 @@ export default function ChatConversationSection() {
             ↻ Restart
           </button>
         </div>
+        )}
       </div>
 
       {/* Mobile Section */}
