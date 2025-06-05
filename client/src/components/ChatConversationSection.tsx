@@ -134,9 +134,9 @@ export default function ChatConversationSection() {
   }, [messages.length]);
 
   return (
-    <>
-      {/* Fixed Phone Position - Only on larger screens */}
-      <div className="fixed top-4 right-4 z-50 hidden xl:block">
+    <div className="relative min-h-screen">
+      {/* Left Side Sticky Phone */}
+      <div className="hidden xl:block fixed left-8 top-1/2 -translate-y-1/2 z-40">
         <div className="w-72 h-[520px] bg-black rounded-[2.5rem] p-2 shadow-2xl">
           <div className="w-full h-full bg-white rounded-[2rem] overflow-hidden flex flex-col">
             {/* Phone Header */}
@@ -215,7 +215,7 @@ export default function ChatConversationSection() {
         </div>
       </div>
 
-      {/* Mobile Section - Shows on smaller screens */}
+      {/* Mobile Section */}
       <section className="py-16 bg-muted/50 xl:hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
@@ -229,7 +229,6 @@ export default function ChatConversationSection() {
 
           <div className="mx-auto w-80 h-[600px] bg-black rounded-[3rem] p-2 shadow-2xl">
             <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden flex flex-col">
-              {/* Mobile Phone Content - Same as above */}
               <div className="bg-primary px-4 py-3 flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
@@ -316,6 +315,6 @@ export default function ChatConversationSection() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
