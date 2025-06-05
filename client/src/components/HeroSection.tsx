@@ -22,18 +22,18 @@ export default function HeroSection() {
     const handleTimeUpdate = () => {
       const duration = video.duration;
       const currentTime = video.currentTime;
-      
+
       if (duration && currentTime) {
         // Calculate progress (0 to 1)
         const progress = currentTime / duration;
-        
+
         // Start slowing down at 70% through the video
         if (progress > 0.7) {
           // Calculate slowdown factor (from 1 to 0.1)
           const slowdownProgress = (progress - 0.7) / 0.3; // 0 to 1 over last 30%
           const playbackRate = Math.max(0.1, 1 - (slowdownProgress * 0.9));
           video.playbackRate = playbackRate;
-          
+
           // Freeze at 95% through
           if (progress > 0.95) {
             video.pause();
@@ -45,7 +45,7 @@ export default function HeroSection() {
 
     video.addEventListener('timeupdate', handleTimeUpdate);
     video.addEventListener('error', handleError);
-    
+
     return () => {
       video.removeEventListener('timeupdate', handleTimeUpdate);
       video.removeEventListener('error', handleError);
@@ -62,12 +62,15 @@ export default function HeroSection() {
           muted 
           playsInline
           className="w-full h-full object-cover transition-all duration-1000"
+          onLoadStart={() => console.log("Video load started")}
+          onLoadedData={() => console.log("Video loaded data")}
+          onCanPlay={() => console.log("Video can play")}
         >
           <source src="/assets/hero-video.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-black/50"></div>
       </div>
-      
+
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="space-y-10">
