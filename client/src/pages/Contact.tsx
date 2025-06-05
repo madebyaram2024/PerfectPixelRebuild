@@ -195,11 +195,15 @@ export default function Contact() {
                   <div className="space-y-3">
                     <div className="flex items-center space-x-3">
                       <i className="fas fa-envelope text-primary"></i>
-                      <span>hello@perfectpixelai.com</span>
+                      <a href="mailto:info@perfectpixelai.com" className="hover:text-primary transition-colors">
+                        info@perfectpixelai.com
+                      </a>
                     </div>
                     <div className="flex items-center space-x-3">
                       <i className="fas fa-phone text-primary"></i>
-                      <span>+1 (555) 123-4567</span>
+                      <a href="tel:2138183100" className="hover:text-primary transition-colors">
+                        (213) 818-3100
+                      </a>
                     </div>
                     <div className="flex items-center space-x-3">
                       <i className="fas fa-clock text-primary"></i>
