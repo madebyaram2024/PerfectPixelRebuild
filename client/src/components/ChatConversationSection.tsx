@@ -7,13 +7,13 @@ export default function ChatConversationSection() {
     {
       id: 1,
       sender: 'customer',
-      text: 'Hi, I have a bakery in Glendale CA could you help me make a professional website?',
+      text: 'Hi, I have a bakery in Glendale CA. Could you help me make a professional website?',
       time: '2:15 PM'
     },
     {
       id: 2,
       sender: 'perfectpixel',
-      text: 'Of course! It would be my pleasure. Just choose the new build option for $199',
+      text: 'Of course! It would be my pleasure. Just choose the new build option for $199 and we\'ll create a beautiful 5-page website for your bakery.',
       time: '2:16 PM'
     },
     {
@@ -25,20 +25,62 @@ export default function ChatConversationSection() {
     {
       id: 4,
       sender: 'perfectpixel',
-      text: '$199 - that\'s our price',
+      text: '$199 - that\'s our complete price. No hidden fees, no surprises.',
       time: '2:17 PM'
     },
     {
       id: 5,
       sender: 'customer',
-      text: 'Why? How do you make money with that?',
+      text: 'Why so cheap? How do you make money with that?',
       time: '2:18 PM'
     },
     {
       id: 6,
       sender: 'perfectpixel',
-      text: 'Well for right now we just want to earn your business and build a portfolio. So rather than charging you more and paying big companies more to advertise us, we are giving our clients the savings!',
+      text: 'Right now we\'re building our portfolio and earning trust. Rather than charging more and paying big companies to advertise us, we\'re giving those savings directly to our clients!',
       time: '2:19 PM'
+    },
+    {
+      id: 7,
+      sender: 'customer',
+      text: 'OK, I see. Is this one of those monthly subscription models then?',
+      time: '2:20 PM'
+    },
+    {
+      id: 8,
+      sender: 'perfectpixel',
+      text: 'Actually no! With us you own your files - you can download everything and use it with your own hosting company.',
+      time: '2:21 PM'
+    },
+    {
+      id: 9,
+      sender: 'perfectpixel',
+      text: 'We do offer a hosting package at $24.99/month - it\'s our everything package, but you don\'t have to use it.',
+      time: '2:21 PM'
+    },
+    {
+      id: 10,
+      sender: 'customer',
+      text: 'What\'s the difference with your hosting?',
+      time: '2:22 PM'
+    },
+    {
+      id: 11,
+      sender: 'perfectpixel',
+      text: 'You\'ll pay for web hosting anywhere you go. With us, we take care of everything so your site loads perfectly. With another provider, you\'d have to set that up yourself or hire someone to do it.',
+      time: '2:23 PM'
+    },
+    {
+      id: 12,
+      sender: 'customer',
+      text: 'That sounds perfect! How do I get started?',
+      time: '2:24 PM'
+    },
+    {
+      id: 13,
+      sender: 'perfectpixel',
+      text: 'Just click "Get My Site for $199" and we\'ll have your bakery website live in 7 days! 🎉',
+      time: '2:24 PM'
     }
   ];
 
@@ -50,7 +92,7 @@ export default function ChatConversationSection() {
         }
         return prev;
       });
-    }, 2000);
+    }, 1500);
 
     return () => clearInterval(timer);
   }, [messages.length]);
@@ -67,8 +109,46 @@ export default function ChatConversationSection() {
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto">
-          <div className="relative">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
+          {/* Left Side - Description */}
+          <div className="space-y-6">
+            <h3 className="text-2xl font-bold">See How Easy It Is</h3>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Watch a real conversation between one of our clients and our team. This bakery owner in Glendale got exactly what they needed - a professional website with no hidden costs and complete ownership of their files.
+            </p>
+            <div className="space-y-4">
+              <div className="flex items-start space-x-3">
+                <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center mt-1">
+                  <span className="text-white text-xs font-bold">✓</span>
+                </div>
+                <div>
+                  <h4 className="font-semibold">Transparent Pricing</h4>
+                  <p className="text-muted-foreground">$199 for a complete 5-page website. No hidden fees.</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center mt-1">
+                  <span className="text-white text-xs font-bold">✓</span>
+                </div>
+                <div>
+                  <h4 className="font-semibold">You Own Everything</h4>
+                  <p className="text-muted-foreground">Download your files and use any hosting provider you want.</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center mt-1">
+                  <span className="text-white text-xs font-bold">✓</span>
+                </div>
+                <div>
+                  <h4 className="font-semibold">Optional Hosting</h4>
+                  <p className="text-muted-foreground">$24.99/month for managed hosting, or use your own.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Side - Sticky Phone */}
+          <div className="lg:sticky lg:top-8">
             {/* Phone Mockup */}
             <div className="mx-auto w-80 h-[600px] bg-black rounded-[3rem] p-2 shadow-2xl">
               <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden flex flex-col">
@@ -137,20 +217,30 @@ export default function ChatConversationSection() {
               </div>
             </div>
 
-            {/* Call to Action */}
-            <div className="mt-8 text-center">
-              <p className="text-lg font-semibold mb-4">
-                Ready to start your own conversation?
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="btn-primary px-8 py-3 rounded-lg font-bold">
-                  Get Your Website for $199
-                </button>
-                <button className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-lg font-bold transition-colors">
-                  Chat with Us Now
-                </button>
-              </div>
+            {/* Restart Button */}
+            <div className="mt-6 text-center">
+              <button 
+                onClick={() => setVisibleMessages(0)}
+                className="text-primary hover:text-primary/80 text-sm font-medium"
+              >
+                ↻ Restart Conversation
+              </button>
             </div>
+          </div>
+        </div>
+
+        {/* Call to Action */}
+        <div className="mt-12 text-center">
+          <p className="text-lg font-semibold mb-4">
+            Ready to start your own conversation?
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button className="btn-primary px-8 py-3 rounded-lg font-bold">
+              Get Your Website for $199
+            </button>
+            <button className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-lg font-bold transition-colors">
+              Chat with Us Now
+            </button>
           </div>
         </div>
       </div>
