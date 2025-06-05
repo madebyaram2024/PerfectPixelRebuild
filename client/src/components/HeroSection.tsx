@@ -1,7 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { trackEvent } from '@/lib/analytics';
+import { useEffect, useRef } from 'react';
 
 export default function HeroSection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   const handleGetSiteClick = () => {
     trackEvent('cta_click', 'hero', 'get_site_199');
   };
@@ -10,18 +13,53 @@ export default function HeroSection() {
     trackEvent('cta_click', 'hero', 'see_included');
   };
 
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleTimeUpdate = () => {
+      const duration = video.duration;
+      const currentTime = video.currentTime;
+      
+      if (duration && currentTime) {
+        // Calculate progress (0 to 1)
+        const progress = currentTime / duration;
+        
+        // Start slowing down at 70% through the video
+        if (progress > 0.7) {
+          // Calculate slowdown factor (from 1 to 0.1)
+          const slowdownProgress = (progress - 0.7) / 0.3; // 0 to 1 over last 30%
+          const playbackRate = Math.max(0.1, 1 - (slowdownProgress * 0.9));
+          video.playbackRate = playbackRate;
+          
+          // Freeze at 95% through
+          if (progress > 0.95) {
+            video.pause();
+            video.style.filter = 'brightness(0.8)'; // Slightly darken frozen frame
+          }
+        }
+      }
+    };
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+    };
+  }, []);
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Background Video */}
       <div className="absolute inset-0">
         <video 
+          ref={videoRef}
           autoPlay 
           muted 
-          loop 
           playsInline
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transition-all duration-1000"
         >
-          <source src="/hero-video.mp4" type="video/mp4" />
+          <source src="/attached_assets/hero_video_file_1749127816590.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-black/50"></div>
       </div>
