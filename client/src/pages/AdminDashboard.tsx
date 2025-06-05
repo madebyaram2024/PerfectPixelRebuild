@@ -93,6 +93,8 @@ export default function AdminDashboard() {
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [showNewProject, setShowNewProject] = useState(false);
   const [showNewUpdate, setShowNewUpdate] = useState(false);
+  const [showNewBlogPost, setShowNewBlogPost] = useState(false);
+  const [showNewPortfolioItem, setShowNewPortfolioItem] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -201,6 +203,54 @@ export default function AdminDashboard() {
 
   const onCreateUpdate = (data: UpdateForm) => {
     createUpdateMutation.mutate(data);
+  };
+
+  const createBlogPostMutation = useMutation({
+    mutationFn: async (data: BlogPostForm) => {
+      const response = await apiRequest('POST', '/api/admin/blog-posts', data);
+      return await response.json();
+    },
+    onSuccess: () => {
+      toast({ title: "Blog post created successfully" });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/blog-posts'] });
+      setShowNewBlogPost(false);
+      blogForm.reset();
+    },
+    onError: (error) => {
+      toast({
+        title: "Failed to create blog post",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const createPortfolioItemMutation = useMutation({
+    mutationFn: async (data: PortfolioItemForm) => {
+      const response = await apiRequest('POST', '/api/admin/portfolio-items', data);
+      return await response.json();
+    },
+    onSuccess: () => {
+      toast({ title: "Portfolio item created successfully" });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/portfolio-items'] });
+      setShowNewPortfolioItem(false);
+      portfolioForm.reset();
+    },
+    onError: (error) => {
+      toast({
+        title: "Failed to create portfolio item",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const onCreateBlogPost = (data: BlogPostForm) => {
+    createBlogPostMutation.mutate(data);
+  };
+
+  const onCreatePortfolioItem = (data: PortfolioItemForm) => {
+    createPortfolioItemMutation.mutate(data);
   };
 
   return (
@@ -622,7 +672,408 @@ export default function AdminDashboard() {
               </CardContent>
             </Card>
           </TabsContent>
+
+          <TabsContent value="blog" className="space-y-6">
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <div>
+                  <CardTitle>Blog Management</CardTitle>
+                  <CardDescription>Create and manage blog posts</CardDescription>
+                </div>
+                <Button onClick={() => setShowNewBlogPost(true)}>
+                  <Plus className="w-4 h-4 mr-2" />
+                  New Post
+                </Button>
+              </CardHeader>
+              <CardContent>
+                <div className="grid gap-4">
+                  {blogPosts.map((post: any) => (
+                    <Card key={post.id}>
+                      <CardContent className="pt-6">
+                        <div className="flex items-start justify-between">
+                          <div className="space-y-2">
+                            <h3 className="font-medium">{post.title}</h3>
+                            <p className="text-sm text-gray-600">{post.excerpt}</p>
+                            <div className="flex items-center space-x-2">
+                              <Badge variant={post.status === 'published' ? 'default' : 'secondary'}>
+                                {post.status}
+                              </Badge>
+                              <span className="text-xs text-gray-500">by {post.author}</span>
+                              {post.publishedAt && (
+                                <span className="text-xs text-gray-500">
+                                  • {formatDate(post.publishedAt)}
+                                </span>
+                              )}
+                            </div>
+                            {post.tags && post.tags.length > 0 && (
+                              <div className="flex flex-wrap gap-1 mt-2">
+                                {post.tags.map((tag: string, index: number) => (
+                                  <Badge key={index} variant="outline" className="text-xs">
+                                    {tag}
+                                  </Badge>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex space-x-2">
+                            <Button variant="outline" size="sm">
+                              <Eye className="w-4 h-4" />
+                            </Button>
+                            <Button variant="outline" size="sm">
+                              <Edit className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="portfolio" className="space-y-6">
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <div>
+                  <CardTitle>Portfolio Management</CardTitle>
+                  <CardDescription>Manage portfolio items and case studies</CardDescription>
+                </div>
+                <Button onClick={() => setShowNewPortfolioItem(true)}>
+                  <Plus className="w-4 h-4 mr-2" />
+                  New Item
+                </Button>
+              </CardHeader>
+              <CardContent>
+                <div className="grid gap-4">
+                  {portfolioItems.map((item: any) => (
+                    <Card key={item.id}>
+                      <CardContent className="pt-6">
+                        <div className="flex items-start justify-between">
+                          <div className="space-y-2">
+                            <h3 className="font-medium">{item.title}</h3>
+                            <p className="text-sm text-gray-600">{item.shortDescription}</p>
+                            <div className="flex items-center space-x-2">
+                              <Badge variant="outline">{item.category}</Badge>
+                              <Badge variant={item.featured ? 'default' : 'secondary'}>
+                                {item.featured ? 'Featured' : 'Regular'}
+                              </Badge>
+                              <Badge variant="outline">{item.status}</Badge>
+                            </div>
+                            {item.technologies && item.technologies.length > 0 && (
+                              <div className="flex flex-wrap gap-1 mt-2">
+                                {item.technologies.map((tech: string, index: number) => (
+                                  <Badge key={index} variant="outline" className="text-xs">
+                                    {tech}
+                                  </Badge>
+                                ))}
+                              </div>
+                            )}
+                            {item.clientName && (
+                              <p className="text-sm text-gray-600">Client: {item.clientName}</p>
+                            )}
+                          </div>
+                          <div className="flex space-x-2">
+                            <Button variant="outline" size="sm">
+                              <Eye className="w-4 h-4" />
+                            </Button>
+                            <Button variant="outline" size="sm">
+                              <Edit className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
         </Tabs>
+
+        {/* Blog Post Creation Dialog */}
+        <Dialog open={showNewBlogPost} onOpenChange={setShowNewBlogPost}>
+          <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>Create New Blog Post</DialogTitle>
+              <DialogDescription>
+                Add a new blog post to your website
+              </DialogDescription>
+            </DialogHeader>
+            <Form {...blogForm}>
+              <form onSubmit={blogForm.handleSubmit(onCreateBlogPost)} className="space-y-4">
+                <FormField
+                  control={blogForm.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Title</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enter blog post title" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={blogForm.control}
+                  name="slug"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Slug</FormLabel>
+                      <FormControl>
+                        <Input placeholder="blog-post-url-slug" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={blogForm.control}
+                  name="excerpt"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Excerpt</FormLabel>
+                      <FormControl>
+                        <Textarea placeholder="Brief description of the blog post" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={blogForm.control}
+                  name="content"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Content</FormLabel>
+                      <FormControl>
+                        <Textarea 
+                          placeholder="Full blog post content" 
+                          className="min-h-[200px]" 
+                          {...field} 
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div className="grid grid-cols-2 gap-4">
+                  <FormField
+                    control={blogForm.control}
+                    name="author"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Author</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Author name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={blogForm.control}
+                    name="status"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Status</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select status" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="draft">Draft</SelectItem>
+                            <SelectItem value="published">Published</SelectItem>
+                            <SelectItem value="archived">Archived</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="flex justify-end space-x-2">
+                  <Button type="button" variant="outline" onClick={() => setShowNewBlogPost(false)}>
+                    Cancel
+                  </Button>
+                  <Button type="submit" disabled={createBlogPostMutation.isPending}>
+                    {createBlogPostMutation.isPending ? "Creating..." : "Create Post"}
+                  </Button>
+                </div>
+              </form>
+            </Form>
+          </DialogContent>
+        </Dialog>
+
+        {/* Portfolio Item Creation Dialog */}
+        <Dialog open={showNewPortfolioItem} onOpenChange={setShowNewPortfolioItem}>
+          <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>Create New Portfolio Item</DialogTitle>
+              <DialogDescription>
+                Add a new project to your portfolio
+              </DialogDescription>
+            </DialogHeader>
+            <Form {...portfolioForm}>
+              <form onSubmit={portfolioForm.handleSubmit(onCreatePortfolioItem)} className="space-y-4">
+                <FormField
+                  control={portfolioForm.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Title</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Project title" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={portfolioForm.control}
+                  name="slug"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Slug</FormLabel>
+                      <FormControl>
+                        <Input placeholder="project-url-slug" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={portfolioForm.control}
+                  name="shortDescription"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Short Description</FormLabel>
+                      <FormControl>
+                        <Textarea placeholder="Brief project description" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={portfolioForm.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Full Description</FormLabel>
+                      <FormControl>
+                        <Textarea 
+                          placeholder="Detailed project description" 
+                          className="min-h-[150px]" 
+                          {...field} 
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div className="grid grid-cols-2 gap-4">
+                  <FormField
+                    control={portfolioForm.control}
+                    name="category"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Category</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select category" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="web-development">Web Development</SelectItem>
+                            <SelectItem value="ecommerce">E-commerce</SelectItem>
+                            <SelectItem value="corporate">Corporate</SelectItem>
+                            <SelectItem value="healthcare">Healthcare</SelectItem>
+                            <SelectItem value="education">Education</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={portfolioForm.control}
+                    name="status"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Status</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select status" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="active">Active</SelectItem>
+                            <SelectItem value="featured">Featured</SelectItem>
+                            <SelectItem value="archived">Archived</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <FormField
+                  control={portfolioForm.control}
+                  name="featuredImage"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Featured Image URL</FormLabel>
+                      <FormControl>
+                        <Input placeholder="https://example.com/image.jpg" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={portfolioForm.control}
+                  name="clientName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Client Name (Optional)</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Client or company name" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={portfolioForm.control}
+                  name="projectUrl"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Project URL (Optional)</FormLabel>
+                      <FormControl>
+                        <Input placeholder="https://project-website.com" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div className="flex justify-end space-x-2">
+                  <Button type="button" variant="outline" onClick={() => setShowNewPortfolioItem(false)}>
+                    Cancel
+                  </Button>
+                  <Button type="submit" disabled={createPortfolioItemMutation.isPending}>
+                    {createPortfolioItemMutation.isPending ? "Creating..." : "Create Item"}
+                  </Button>
+                </div>
+              </form>
+            </Form>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
