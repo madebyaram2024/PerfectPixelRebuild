@@ -1,6 +1,6 @@
 
 import { Link } from 'wouter';
-import { FaFacebook, FaInstagram, FaXTwitter, FaLinkedin, FaGithub } from 'react-icons/fa6';
+import { FaFacebook, FaInstagram, FaXTwitter } from 'react-icons/fa6';
 
 export default function Footer() {
   return (
@@ -39,20 +39,6 @@ export default function Footer() {
                 aria-label="X (Twitter)"
               >
                 <FaXTwitter className="text-xl" />
-              </a>
-              <a 
-                href="#" 
-                className="text-muted-foreground hover:text-primary transition-colors transform hover:scale-110 duration-200"
-                aria-label="LinkedIn"
-              >
-                <FaLinkedin className="text-xl" />
-              </a>
-              <a 
-                href="#" 
-                className="text-muted-foreground hover:text-primary transition-colors transform hover:scale-110 duration-200"
-                aria-label="GitHub"
-              >
-                <FaGithub className="text-xl" />
               </a>
             </div>
           </div>
