@@ -45,8 +45,38 @@ const updateSchema = z.object({
   type: z.string(),
 });
 
+const blogPostSchema = z.object({
+  title: z.string().min(1, 'Title is required'),
+  slug: z.string().min(1, 'Slug is required'),
+  excerpt: z.string().min(1, 'Excerpt is required'),
+  content: z.string().min(1, 'Content is required'),
+  author: z.string().min(1, 'Author is required'),
+  tags: z.array(z.string()).optional(),
+  status: z.string(),
+  publishedAt: z.string().optional(),
+});
+
+const portfolioItemSchema = z.object({
+  title: z.string().min(1, 'Title is required'),
+  slug: z.string().min(1, 'Slug is required'),
+  description: z.string().min(1, 'Description is required'),
+  shortDescription: z.string().min(1, 'Short description is required'),
+  featuredImage: z.string().min(1, 'Featured image is required'),
+  gallery: z.array(z.string()).optional(),
+  category: z.string().min(1, 'Category is required'),
+  technologies: z.array(z.string()).optional(),
+  clientName: z.string().optional(),
+  projectUrl: z.string().optional(),
+  githubUrl: z.string().optional(),
+  status: z.string(),
+  featured: z.boolean().optional(),
+  completedAt: z.string().optional(),
+});
+
 type ProjectForm = z.infer<typeof projectSchema>;
 type UpdateForm = z.infer<typeof updateSchema>;
+type BlogPostForm = z.infer<typeof blogPostSchema>;
+type PortfolioItemForm = z.infer<typeof portfolioItemSchema>;
 
 function formatCurrency(cents: number) {
   return new Intl.NumberFormat('en-US', {
@@ -78,6 +108,14 @@ export default function AdminDashboard() {
     queryKey: ['/api/admin/contacts'],
   });
 
+  const { data: blogPosts = [] } = useQuery({
+    queryKey: ['/api/admin/blog-posts'],
+  });
+
+  const { data: portfolioItems = [] } = useQuery({
+    queryKey: ['/api/admin/portfolio-items'],
+  });
+
   const projectForm = useForm<ProjectForm>({
     resolver: zodResolver(projectSchema),
     defaultValues: {
@@ -92,6 +130,25 @@ export default function AdminDashboard() {
     resolver: zodResolver(updateSchema),
     defaultValues: {
       type: 'update',
+    },
+  });
+
+  const blogForm = useForm<BlogPostForm>({
+    resolver: zodResolver(blogPostSchema),
+    defaultValues: {
+      status: 'draft',
+      author: 'PerfectPixel Team',
+      tags: [],
+    },
+  });
+
+  const portfolioForm = useForm<PortfolioItemForm>({
+    resolver: zodResolver(portfolioItemSchema),
+    defaultValues: {
+      status: 'active',
+      featured: false,
+      gallery: [],
+      technologies: [],
     },
   });
 
