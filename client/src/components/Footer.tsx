@@ -20,21 +20,27 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4 mb-6">
               <a 
-                href="#" 
+                href="https://www.facebook.com/perfectpixelaisocial/" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors transform hover:scale-110 duration-200"
                 aria-label="Facebook"
               >
                 <FaFacebook className="text-xl" />
               </a>
               <a 
-                href="#" 
+                href="https://www.instagram.com/perfect_pixel_ai/" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors transform hover:scale-110 duration-200"
                 aria-label="Instagram"
               >
                 <FaInstagram className="text-xl" />
               </a>
               <a 
-                href="#" 
+                href="https://x.com/perfectpixelai" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors transform hover:scale-110 duration-200"
                 aria-label="X (Twitter)"
               >
