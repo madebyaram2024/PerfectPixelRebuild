@@ -78,7 +78,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Admin routes (for future expansion)
+  // Admin routes
   app.get('/api/admin/contacts', async (req, res) => {
     try {
       const contacts = await storage.getContacts();
@@ -86,6 +86,56 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error fetching contacts:", error);
       res.status(500).json({ message: "Failed to fetch contacts" });
+    }
+  });
+
+  app.get('/api/admin/clients', async (req, res) => {
+    try {
+      const clients = await storage.getAllClients();
+      res.json(clients);
+    } catch (error) {
+      console.error("Error fetching clients:", error);
+      res.status(500).json({ message: "Failed to fetch clients" });
+    }
+  });
+
+  app.get('/api/admin/projects', async (req, res) => {
+    try {
+      const projects = await storage.getAllClientProjects();
+      res.json(projects);
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+      res.status(500).json({ message: "Failed to fetch projects" });
+    }
+  });
+
+  app.post('/api/admin/projects', async (req, res) => {
+    try {
+      const projectData = insertClientProjectSchema.parse(req.body);
+      const project = await storage.createClientProject(projectData);
+      res.json(project);
+    } catch (error) {
+      console.error("Error creating project:", error);
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Invalid project data", errors: error.errors });
+      } else {
+        res.status(500).json({ message: "Failed to create project" });
+      }
+    }
+  });
+
+  app.post('/api/admin/project-updates', async (req, res) => {
+    try {
+      const updateData = insertProjectUpdateSchema.parse(req.body);
+      const update = await storage.createProjectUpdate(updateData);
+      res.json(update);
+    } catch (error) {
+      console.error("Error creating project update:", error);
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Invalid update data", errors: error.errors });
+      } else {
+        res.status(500).json({ message: "Failed to create update" });
+      }
     }
   });
 

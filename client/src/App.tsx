@@ -15,6 +15,7 @@ import Blog from "@/pages/Blog";
 import Privacy from "@/pages/Privacy";
 import ClientLogin from "@/pages/ClientLogin";
 import ClientDashboard from "@/pages/ClientDashboard";
+import AdminDashboard from "@/pages/AdminDashboard";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -32,6 +33,7 @@ function Router() {
       <Route path="/privacy" component={Privacy} />
       <Route path="/client/login" component={ClientLogin} />
       <Route path="/client/dashboard" component={ClientDashboard} />
+      <Route path="/admin" component={AdminDashboard} />
       <Route component={NotFound} />
     </Switch>
   );

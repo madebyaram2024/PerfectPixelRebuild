@@ -60,6 +60,10 @@ export interface IStorage {
   updateProjectMilestone(milestoneId: number, updates: Partial<ProjectMilestone>): Promise<ProjectMilestone>;
   getProjectUpdates(projectId: number): Promise<ProjectUpdate[]>;
   createProjectUpdate(update: InsertProjectUpdate): Promise<ProjectUpdate>;
+  
+  // Admin operations
+  getAllClients(): Promise<Client[]>;
+  getAllClientProjects(): Promise<ClientProject[]>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -204,6 +208,15 @@ export class DatabaseStorage implements IStorage {
   async createProjectUpdate(insertUpdate: InsertProjectUpdate): Promise<ProjectUpdate> {
     const [update] = await db.insert(projectUpdates).values(insertUpdate).returning();
     return update;
+  }
+
+  // Admin operations
+  async getAllClients(): Promise<Client[]> {
+    return await db.select().from(clients).orderBy(clients.createdAt);
+  }
+
+  async getAllClientProjects(): Promise<ClientProject[]> {
+    return await db.select().from(clientProjects).orderBy(clientProjects.createdAt);
   }
 }
 
