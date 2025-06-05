@@ -71,15 +71,23 @@ export default function ServicesSection() {
   ];
 
   return (
-    <section id="services" className="py-24 bg-black text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-20">
-          <h2 className="text-5xl lg:text-7xl font-black mb-8 text-white tracking-tight">
-            Our <span className="text-primary">Services</span>
+    <section id="services" className="py-32 bg-gradient-to-b from-black via-gray-900/50 to-black text-white relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,215,0,0.03)_0%,transparent_70%)]"></div>
+      <div className="absolute top-20 left-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
+      
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-24">
+          <div className="inline-flex items-center bg-primary/10 border border-primary/20 rounded-full px-6 py-3 mb-8">
+            <span className="text-primary text-sm font-semibold">💎 PREMIUM SERVICES</span>
+          </div>
+          <h2 className="text-6xl lg:text-8xl font-black mb-8 text-white tracking-tight">
+            Our <span className="bg-gradient-to-r from-primary via-yellow-300 to-primary bg-clip-text text-transparent">Services</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-yellow-400 mx-auto mb-8"></div>
-          <p className="text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            Choose the perfect plan for your business needs and budget
+          <div className="w-32 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mb-8"></div>
+          <p className="text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+            Professional web solutions designed to elevate your business and drive growth
           </p>
         </div>
         

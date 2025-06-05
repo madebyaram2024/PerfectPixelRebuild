@@ -57,16 +57,24 @@ export default function ProcessSection() {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-background via-muted/30 to-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-32 bg-gradient-to-b from-background via-muted/20 to-background relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="cyber-grid"></div>
+      </div>
+      
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-20">
-          <h2 className="text-5xl lg:text-7xl font-black mb-8 tracking-tight">
-            Our <span className="gradient-text">Process</span>
+        <div className="text-center mb-24">
+          <div className="inline-flex items-center bg-primary/10 border border-primary/20 rounded-full px-6 py-3 mb-8">
+            <span className="text-primary text-sm font-semibold">🎯 OUR METHODOLOGY</span>
+          </div>
+          <h2 className="text-6xl lg:text-8xl font-black mb-8 tracking-tight">
+            Design <span className="gradient-text">Process</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-yellow-400 mx-auto mb-8"></div>
-          <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Our streamlined approach ensures a smooth and efficient website development journey
+          <div className="w-32 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mb-8"></div>
+          <p className="text-xl lg:text-2xl text-muted-foreground max-w-5xl mx-auto leading-relaxed">
+            Our proven methodology combines creative excellence with technical precision to deliver exceptional results
           </p>
         </div>
 

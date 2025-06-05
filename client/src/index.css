@@ -155,6 +155,58 @@
   .text-shadow-glow {
     text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
   }
+  
+  .glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+  
+  .glass-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    box-shadow: 0 25px 50px -12px rgba(255, 215, 0, 0.1);
+  }
+  
+  .premium-gradient {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 25%, #09bba5 50%, #0EA5E9 75%, #8B5CF6 100%);
+  }
+  
+  .text-gradient-premium {
+    background: linear-gradient(135deg, #FFD700, #FFA500, #09bba5, #0EA5E9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .hover-lift {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-8px) scale(1.02);
+  }
+  
+  .shine-effect {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .shine-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.8s;
+  }
+  
+  .shine-effect:hover::before {
+    left: 100%;
+  }
 }
 
 @layer utilities {
