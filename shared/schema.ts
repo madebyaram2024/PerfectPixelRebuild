@@ -1,4 +1,4 @@
-import { pgTable, text, serial, integer, boolean, timestamp, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, timestamp, varchar, decimal, jsonb, index } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -125,6 +125,56 @@ export const portfolioItems = pgTable("portfolio_items", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+export const seoAudits = pgTable("seo_audits", {
+  id: serial("id").primaryKey(),
+  url: text("url").notNull(),
+  title: text("title"),
+  metaDescription: text("meta_description"),
+  h1Tags: text("h1_tags").array(),
+  h2Tags: text("h2_tags").array(),
+  imageCount: integer("image_count").default(0),
+  imagesWithoutAlt: integer("images_without_alt").default(0),
+  internalLinks: integer("internal_links").default(0),
+  externalLinks: integer("external_links").default(0),
+  pageSize: integer("page_size").default(0), // in bytes
+  loadTime: integer("load_time").default(0), // in milliseconds
+  mobileOptimized: boolean("mobile_optimized").default(false),
+  httpsEnabled: boolean("https_enabled").default(false),
+  canonicalTag: text("canonical_tag"),
+  robotsDirective: text("robots_directive"),
+  socialTags: text("social_tags").array(), // Open Graph, Twitter cards
+  schemaMarkup: boolean("schema_markup").default(false),
+  issues: text("issues").array(), // Array of SEO issues found
+  recommendations: text("recommendations").array(), // Array of SEO recommendations
+  score: integer("score").default(0), // Overall SEO score out of 100
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const seoKeywords = pgTable("seo_keywords", {
+  id: serial("id").primaryKey(),
+  keyword: varchar("keyword", { length: 255 }).notNull(),
+  url: text("url").notNull(),
+  position: integer("position"),
+  searchVolume: integer("search_volume"),
+  difficulty: integer("difficulty"), // 1-100 scale
+  cpc: varchar("cpc", { length: 20 }), // Cost per click as string
+  targetPage: text("target_page"),
+  isTracking: boolean("is_tracking").default(true),
+  lastChecked: timestamp("last_checked").defaultNow(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const seoReports = pgTable("seo_reports", {
+  id: serial("id").primaryKey(),
+  reportType: varchar("report_type", { length: 50 }).notNull(), // 'weekly', 'monthly', 'on-demand'
+  title: varchar("title", { length: 255 }).notNull(),
+  summary: text("summary").notNull(),
+  metrics: text("metrics").notNull(), // JSON string of metrics
+  recommendations: text("recommendations").array(),
+  generatedBy: varchar("generated_by", { length: 255 }).default("system"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 // Insert schemas
 export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
@@ -176,6 +226,21 @@ export const insertPortfolioItemSchema = createInsertSchema(portfolioItems).omit
   id: true,
   createdAt: true,
   updatedAt: true,
+});
+
+export const insertSeoAuditSchema = createInsertSchema(seoAudits).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertSeoKeywordSchema = createInsertSchema(seoKeywords).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertSeoReportSchema = createInsertSchema(seoReports).omit({
+  id: true,
+  createdAt: true,
 });
 
 // Types
