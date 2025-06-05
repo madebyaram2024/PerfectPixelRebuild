@@ -59,7 +59,7 @@ export default function HeroSection() {
           playsInline
           className="w-full h-full object-cover transition-all duration-1000"
         >
-          <source src="/attached_assets/hero_video_file_1749127816590.mp4" type="video/mp4" />
+          <source src="/hero-video.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-black/50"></div>
       </div>
