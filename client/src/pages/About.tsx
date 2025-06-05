@@ -1,111 +1,183 @@
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Check, Shield, Clock, Users } from 'lucide-react';
 
 export default function About() {
-  const teamMembers = [
-    {
-      name: "Sarah Chen",
-      role: "CEO & Founder",
-      description: "10+ years in web development and AI technology integration."
-    },
-    {
-      name: "Marcus Rodriguez",
-      role: "Lead Developer",
-      description: "Full-stack developer specializing in modern web technologies."
-    },
-    {
-      name: "Emily Johnson",
-      role: "Design Director",
-      description: "Expert in UX/UI design with a focus on conversion optimization."
-    }
-  ];
-
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navigation />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-b from-background to-muted">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl lg:text-6xl font-bold mb-6">
-            About <span className="text-primary">PerfectPixel AI</span>
+      <section className="relative pt-24 pb-16 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1920&h=1080')] bg-cover bg-center"></div>
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-white">
+            About <span className="text-primary">Us</span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            We're a team of passionate developers and designers creating custom websites with AI-powered efficiency.
+          <p className="text-xl text-white/90 max-w-2xl mx-auto">
+            Our mission is simple: to deliver such a great experience that choosing us again is an easy decision.
           </p>
         </div>
       </section>
 
-      {/* Mission Section */}
-      <section className="py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              At PerfectPixel AI, we believe every business deserves a professional website that drives results. 
-              By combining human creativity with AI efficiency, we deliver custom websites faster and more 
-              affordably than traditional agencies, without compromising on quality.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            <Card>
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="fas fa-bolt text-primary text-2xl"></i>
+      {/* Special Offer Section */}
+      <section className="py-16 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl lg:text-4xl font-bold mb-6">
+                Special <span className="text-primary">Offer</span>
+              </h2>
+              
+              <p className="text-muted-foreground mb-6 leading-relaxed">
+                As a new company dedicated to revolutionizing web development through AI innovation, we're offering our services at unbeatable rates. This introductory pricing allows us to build a strong foundation while providing exceptional value to every client.
+              </p>
+              
+              <p className="text-muted-foreground mb-6 leading-relaxed">
+                Take advantage of our introductory pricing for a brand new offering full-featured, custom-built websites at a fraction of the market rate. This limited-time pricing allows us to build our portfolio goals, but rates are set to double soon as we establish ourselves in the market.
+              </p>
+              
+              <p className="text-muted-foreground leading-relaxed">
+                Don't miss this opportunity to get a professional, AI-powered website at our introductory rate. Contact us today to lock in these special rates and be part of our growing success story.
+              </p>
+            </div>
+            
+            <div className="relative">
+              <div className="bg-muted/50 rounded-2xl p-8 text-center">
+                <div className="bg-primary/20 rounded-lg p-8 mb-6">
+                  <div className="text-primary text-6xl font-bold mb-2">AI</div>
+                  <div className="text-lg font-semibold">Perfect Pixel AI</div>
+                  <div className="text-sm text-muted-foreground mt-2">AI Powered Website</div>
                 </div>
-                <h3 className="text-xl font-semibold mb-3">Speed</h3>
-                <p className="text-muted-foreground">AI-boosted workflow enables 7-day delivery without sacrificing quality.</p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="fas fa-palette text-accent text-2xl"></i>
+                <div className="space-y-3">
+                  <div className="bg-background rounded-lg p-3">
+                    <div className="flex items-center">
+                      <Check className="text-primary mr-2 h-4 w-4" />
+                      <span className="text-sm">AI Perfect Website</span>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-3">Creativity</h3>
-                <p className="text-muted-foreground">Human designers ensure every website is unique and brand-aligned.</p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="fas fa-dollar-sign text-green-500 text-2xl"></i>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Value</h3>
-                <p className="text-muted-foreground">Professional results at a fraction of traditional agency costs.</p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-16 bg-muted">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Stats Section */}
+      <section className="py-16 bg-muted/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div className="text-center bg-background rounded-2xl p-8">
+              <Check className="text-primary mx-auto mb-4 h-12 w-12" />
+              <div className="text-3xl font-bold text-primary mb-2">$199</div>
+              <div className="text-sm text-muted-foreground">5 Page Custom Website</div>
+            </div>
+            
+            <div className="text-center bg-background rounded-2xl p-8">
+              <Shield className="text-primary mx-auto mb-4 h-12 w-12" />
+              <div className="text-3xl font-bold text-primary mb-2">$149</div>
+              <div className="text-sm text-muted-foreground">Re-Design Old Website</div>
+            </div>
+            
+            <div className="text-center bg-background rounded-2xl p-8">
+              <Users className="text-primary mx-auto mb-4 h-12 w-12" />
+              <div className="text-3xl font-bold text-primary mb-2">$24</div>
+              <div className="text-sm text-muted-foreground">Fully Loaded Premium Hosting</div>
+            </div>
+            
+            <div className="text-center bg-background rounded-2xl p-8">
+              <Clock className="text-primary mx-auto mb-4 h-12 w-12" />
+              <div className="text-3xl font-bold text-primary mb-2">24/7</div>
+              <div className="text-sm text-muted-foreground">Customer Support</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Values Section */}
+      <section className="py-16 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-6">Our Team</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+              Our <span className="text-primary">Values</span>
+            </h2>
             <p className="text-lg text-muted-foreground">
-              Meet the experts behind PerfectPixel AI's success.
+              The principles that guide our work and relationships.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {teamMembers.map((member, index) => (
-              <Card key={index}>
-                <CardContent className="p-6 text-center">
-                  <div className="w-24 h-24 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <i className="fas fa-user text-3xl text-primary"></i>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">{member.name}</h3>
-                  <p className="text-primary font-medium mb-3">{member.role}</p>
-                  <p className="text-muted-foreground">{member.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-muted/50 rounded-xl p-6">
+              <h3 className="text-xl font-bold mb-3">Innovation</h3>
+              <p className="text-muted-foreground">
+                We continuously explore new technologies and techniques to deliver cutting-edge solutions.
+              </p>
+            </div>
+
+            <div className="bg-muted/50 rounded-xl p-6">
+              <h3 className="text-xl font-bold mb-3">Quality</h3>
+              <p className="text-muted-foreground">
+                We are committed to excellence in every aspect of our work, from code to design to client interactions.
+              </p>
+            </div>
+
+            <div className="bg-muted/50 rounded-xl p-6">
+              <h3 className="text-xl font-bold mb-3">Transparency</h3>
+              <p className="text-muted-foreground">
+                We believe in clear communication and keeping our clients informed throughout the entire process.
+              </p>
+            </div>
+
+            <div className="bg-muted/50 rounded-xl p-6">
+              <h3 className="text-xl font-bold mb-3">Collaboration</h3>
+              <p className="text-muted-foreground">
+                We work closely with our clients to ensure their vision is realized and their goals are achieved.
+              </p>
+            </div>
+
+            <div className="bg-muted/50 rounded-xl p-6">
+              <h3 className="text-xl font-bold mb-3">Adaptability</h3>
+              <p className="text-muted-foreground">
+                We embrace change and quickly adapt to new challenges and opportunities in the digital landscape.
+              </p>
+            </div>
+
+            <div className="bg-muted/50 rounded-xl p-6">
+              <h3 className="text-xl font-bold mb-3">Client Success</h3>
+              <p className="text-muted-foreground">
+                We measure our success by the success of our clients and the value we add to their businesses.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-gradient-to-r from-primary to-primary/80 rounded-3xl p-8 text-center text-white">
+            <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Online Presence?</h2>
+            <p className="text-lg mb-8 opacity-90">
+              Let's collaborate to create a website that truly represents your brand and drives results.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                className="bg-white text-primary hover:bg-white/90 px-8 py-3 font-bold"
+              >
+                Buy Now
+              </Button>
+              <Button 
+                variant="outline" 
+                className="border-white text-white hover:bg-white hover:text-primary px-8 py-3 font-bold"
+              >
+                View Our Work
+              </Button>
+            </div>
           </div>
         </div>
       </section>
