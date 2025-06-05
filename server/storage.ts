@@ -159,7 +159,7 @@ export class DatabaseStorage implements IStorage {
 
   async getClientProject(projectId: number, clientId: number): Promise<ClientProject | undefined> {
     const [project] = await db.select().from(clientProjects)
-      .where(eq(clientProjects.id, projectId) && eq(clientProjects.clientId, clientId));
+      .where(and(eq(clientProjects.id, projectId), eq(clientProjects.clientId, clientId)));
     return project;
   }
 

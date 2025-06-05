@@ -89,6 +89,92 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Client Portal Routes
+  app.post("/api/client/login", async (req, res) => {
+    try {
+      const { accessCode } = req.body;
+      if (!accessCode) {
+        return res.status(400).json({ message: "Access code is required" });
+      }
+      
+      const client = await storage.getClientByAccessCode(accessCode);
+      if (!client) {
+        return res.status(401).json({ message: "Invalid access code" });
+      }
+      
+      res.json(client);
+    } catch (error) {
+      console.error("Error during client login:", error);
+      res.status(500).json({ message: "Login failed" });
+    }
+  });
+
+  app.get("/api/client/:clientId/projects", async (req, res) => {
+    try {
+      const clientId = parseInt(req.params.clientId);
+      if (isNaN(clientId)) {
+        return res.status(400).json({ message: "Invalid client ID" });
+      }
+      
+      const projects = await storage.getClientProjects(clientId);
+      res.json(projects);
+    } catch (error) {
+      console.error("Error fetching client projects:", error);
+      res.status(500).json({ message: "Failed to fetch projects" });
+    }
+  });
+
+  app.get("/api/client/:clientId/projects/:projectId", async (req, res) => {
+    try {
+      const clientId = parseInt(req.params.clientId);
+      const projectId = parseInt(req.params.projectId);
+      
+      if (isNaN(clientId) || isNaN(projectId)) {
+        return res.status(400).json({ message: "Invalid client or project ID" });
+      }
+      
+      const project = await storage.getClientProject(projectId, clientId);
+      if (!project) {
+        return res.status(404).json({ message: "Project not found" });
+      }
+      
+      res.json(project);
+    } catch (error) {
+      console.error("Error fetching client project:", error);
+      res.status(500).json({ message: "Failed to fetch project" });
+    }
+  });
+
+  app.get("/api/projects/:projectId/milestones", async (req, res) => {
+    try {
+      const projectId = parseInt(req.params.projectId);
+      if (isNaN(projectId)) {
+        return res.status(400).json({ message: "Invalid project ID" });
+      }
+      
+      const milestones = await storage.getProjectMilestones(projectId);
+      res.json(milestones);
+    } catch (error) {
+      console.error("Error fetching project milestones:", error);
+      res.status(500).json({ message: "Failed to fetch milestones" });
+    }
+  });
+
+  app.get("/api/projects/:projectId/updates", async (req, res) => {
+    try {
+      const projectId = parseInt(req.params.projectId);
+      if (isNaN(projectId)) {
+        return res.status(400).json({ message: "Invalid project ID" });
+      }
+      
+      const updates = await storage.getProjectUpdates(projectId);
+      res.json(updates);
+    } catch (error) {
+      console.error("Error fetching project updates:", error);
+      res.status(500).json({ message: "Failed to fetch updates" });
+    }
+  });
+
   // Health check endpoint
   app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
