@@ -28,12 +28,11 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2" onClick={closeMobileMenu}>
-            <span className="text-green-500 text-xl font-bold">{'</'}</span>
-            <span className="text-xl font-bold">
-              Perfect<span className="text-green-500">Pixel</span><span className="text-white">AI</span>
+          <Link href="/" className="flex items-center space-x-1" onClick={closeMobileMenu}>
+            <span className="text-xl font-bold" style={{ color: '#09bba5' }}>{'< / >'}</span>
+            <span className="text-xl font-bold ml-2">
+              Perfect<span style={{ color: '#09bba5' }}>Pixel</span><span className="text-white">AI</span>
             </span>
-            <span className="text-green-500 text-xl font-bold">{'>'}</span>
           </Link>
           
           {/* Desktop Navigation */}
@@ -44,9 +43,12 @@ export default function Navigation() {
                 href={link.href}
                 className={`transition-colors duration-300 ${
                   location === link.href 
-                    ? 'text-green-500 font-bold' 
-                    : 'text-white hover:text-green-500'
+                    ? 'font-bold' 
+                    : 'text-white'
                 }`}
+                style={location === link.href ? { color: '#09bba5' } : { color: 'white' }}
+                onMouseEnter={(e) => e.target.style.color = '#09bba5'}
+                onMouseLeave={(e) => e.target.style.color = location === link.href ? '#09bba5' : 'white'}
               >
                 {link.label}
               </Link>
@@ -83,9 +85,10 @@ export default function Navigation() {
                   href={link.href}
                   className={`block px-3 py-2 transition-colors ${
                     location === link.href 
-                      ? 'text-green-500 font-bold' 
-                      : 'text-white hover:text-green-500'
+                      ? 'font-bold' 
+                      : 'text-white'
                   }`}
+                  style={location === link.href ? { color: '#09bba5' } : { color: 'white' }}
                   onClick={closeMobileMenu}
                 >
                   {link.label}

@@ -1,5 +1,5 @@
+
 import { Link } from 'wouter';
-import { Code } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -8,22 +8,36 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="md:col-span-2">
-            <div className="flex items-center space-x-2 mb-6">
-              <Code className="text-primary text-2xl" />
-              <span className="text-2xl font-bold">
-                PerfectPixel<span className="text-primary">AI</span>
+            <div className="flex items-center space-x-1 mb-6">
+              <span className="text-xl font-bold" style={{ color: '#09bba5' }}>{'< / >'}</span>
+              <span className="text-xl font-bold ml-2">
+                Perfect<span style={{ color: '#09bba5' }}>Pixel</span><span className="text-foreground">AI</span>
               </span>
             </div>
             <p className="text-muted-foreground mb-6 max-w-md">
               Professional web development with AI-boosted workflow. Custom websites delivered fast, built right.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 mb-6">
               <a 
                 href="#" 
                 className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="Twitter"
+                aria-label="Facebook"
               >
-                <i className="fab fa-twitter text-xl"></i>
+                <i className="fab fa-facebook text-xl"></i>
+              </a>
+              <a 
+                href="#" 
+                className="text-muted-foreground hover:text-primary transition-colors"
+                aria-label="Instagram"
+              >
+                <i className="fab fa-instagram text-xl"></i>
+              </a>
+              <a 
+                href="#" 
+                className="text-muted-foreground hover:text-primary transition-colors"
+                aria-label="X (Twitter)"
+              >
+                <i className="fab fa-x-twitter text-xl"></i>
               </a>
               <a 
                 href="#" 
@@ -109,7 +123,7 @@ export default function Footer() {
             © 2024 PerfectPixel AI. All rights reserved.
           </p>
           <p className="text-muted-foreground text-sm">
-            Built with AI-powered technology
+            Built with Human and Artificial Collaborative Intelligence
           </p>
         </div>
       </div>

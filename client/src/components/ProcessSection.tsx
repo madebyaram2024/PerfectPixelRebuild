@@ -57,9 +57,9 @@ export default function ProcessSection() {
                     <span className="text-sm font-bold text-gray-800">{step.number}</span>
                   </div>
                 </div>
-                <div className="bg-white dark:bg-card rounded-xl p-6 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                <div className="bg-white dark:bg-card rounded-xl p-6 shadow-lg group-hover:shadow-xl transition-shadow duration-300 min-h-[160px] flex flex-col">
                   <h3 className={`text-2xl font-bold mb-4 ${step.textColor}`}>{step.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+                  <p className="text-gray-800 dark:text-gray-700 leading-relaxed flex-1 font-medium">{step.description}</p>
                 </div>
               </div>
             ))}
@@ -78,7 +78,7 @@ export default function ProcessSection() {
               </div>
               <div className="bg-white dark:bg-card rounded-xl p-6 shadow-lg flex-1">
                 <h3 className={`text-xl font-bold mb-3 ${step.textColor}`}>{step.title}</h3>
-                <p className="text-muted-foreground">{step.description}</p>
+                <p className="text-gray-800 dark:text-gray-700 font-medium">{step.description}</p>
               </div>
             </div>
           ))}
