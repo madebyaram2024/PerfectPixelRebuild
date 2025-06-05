@@ -32,89 +32,95 @@ export default function ChatConversationSection() {
     {
       id: 5,
       sender: 'customer',
-      text: 'But I need customers to order cakes online. Can you add a shopping cart?',
+      text: 'But what about hosting? Don\'t I need to pay monthly for that?',
       time: '2:18 PM'
     },
     {
       id: 6,
       sender: 'perfectpixel',
-      text: 'Great question! We offer an e-commerce add-on for $149 that includes a full shopping cart, payment processing, and we\'ll set up your first 3 products for free.',
-      time: '2:19 PM'
+      text: 'Great question! You have options: 1) Host it yourself (you own the files), 2) Use our hosting for $24.99/month, or 3) Use free hosting like Netlify or Vercel.',
+      time: '2:18 PM'
     },
     {
       id: 7,
       sender: 'customer',
-      text: 'So website + shopping cart would be $348 total?',
-      time: '2:20 PM'
+      text: 'Wait, so I actually own the website files? Not just rent them?',
+      time: '2:19 PM'
     },
     {
       id: 8,
       sender: 'perfectpixel',
-      text: 'Exactly! $199 for the website + $149 for e-commerce = $348 total. Compare that to agencies charging $3000-5000 for the same thing.',
-      time: '2:20 PM'
+      text: 'Exactly! You get the complete source code, all images, everything. It\'s yours forever. No vendor lock-in.',
+      time: '2:19 PM'
     },
     {
       id: 9,
       sender: 'customer',
-      text: 'How do I know you\'re not some scam? This pricing seems impossible.',
-      time: '2:21 PM'
+      text: 'That\'s amazing! Can you add online ordering to my bakery site?',
+      time: '2:20 PM'
     },
     {
       id: 10,
       sender: 'perfectpixel',
-      text: 'I completely understand your skepticism! We\'re a new company building our portfolio. Instead of spending thousands on advertising, we\'re passing those savings to clients like you.',
-      time: '2:22 PM'
+      text: 'Absolutely! E-commerce with shopping cart, payments, and order management is available as an add-on for $149.',
+      time: '2:21 PM'
     },
     {
       id: 11,
       sender: 'customer',
-      text: 'What about hosting? That\'s usually where companies get you with hidden costs.',
-      time: '2:23 PM'
+      text: 'So the total would be $348 for a complete online bakery with shopping?',
+      time: '2:22 PM'
     },
     {
       id: 12,
       sender: 'perfectpixel',
-      text: 'Total transparency: You can host anywhere you want since you own the files. We offer hosting at $24.99/month, but it\'s completely optional.',
-      time: '2:23 PM'
+      text: 'Correct! $199 base website + $149 e-commerce = $348 total. No hidden fees, no surprises.',
+      time: '2:22 PM'
     },
     {
       id: 13,
-      sender: 'perfectpixel',
-      text: 'Our hosting includes everything - security, backups, updates, SSL certificate. With other hosts, you\'d need to set all that up yourself.',
-      time: '2:24 PM'
+      sender: 'customer',
+      text: 'This seems too good to be true. Other companies want $2000+ for this...',
+      time: '2:23 PM'
     },
     {
       id: 14,
-      sender: 'customer',
-      text: 'Can I see examples of your work first?',
-      time: '2:25 PM'
+      sender: 'perfectpixel',
+      text: 'We use AI to streamline our process and pass the savings to you. Plus, we want to help small businesses succeed online!',
+      time: '2:24 PM'
     },
     {
       id: 15,
+      sender: 'customer',
+      text: 'Do you have examples of bakery websites you\'ve built?',
+      time: '2:25 PM'
+    },
+    {
+      id: 16,
       sender: 'perfectpixel',
       text: 'Of course! Check our portfolio section above. We\'ve done sites for restaurants, retail stores, service businesses, and more.',
       time: '2:25 PM'
     },
     {
-      id: 16,
+      id: 17,
       sender: 'customer',
       text: 'How long does it actually take?',
       time: '2:26 PM'
     },
     {
-      id: 17,
+      id: 18,
       sender: 'perfectpixel',
       text: '7 days guaranteed. We use AI to speed up the design process, but every site is custom-built by real developers and reviewed by humans.',
       time: '2:26 PM'
     },
     {
-      id: 18,
+      id: 19,
       sender: 'customer',
       text: 'Alright, you\'ve convinced me. How do I get started?',
       time: '2:27 PM'
     },
     {
-      id: 19,
+      id: 20,
       sender: 'perfectpixel',
       text: 'Perfect! Just click "Get My Site for $199" below. We\'ll send you a questionnaire, and your bakery will be online in 7 days!',
       time: '2:27 PM'
@@ -135,14 +141,14 @@ export default function ChatConversationSection() {
   }, [messages.length]);
 
   return (
-    <div className="relative min-h-screen">
+    <>
       {/* Bottom Right Chat Phone */}
       <div className="hidden xl:block fixed right-8 bottom-8 z-40">
         <div className={`w-72 bg-black rounded-[2.5rem] p-2 shadow-2xl transition-all duration-300 ${
           isMinimized ? 'h-16' : 'h-[520px]'
         }`}>
           <div className="w-full h-full bg-white rounded-[2rem] overflow-hidden flex flex-col">
-            {/* Phone Header */}
+            {/* Phone Header with Minimize Button */}
             <div className="bg-primary px-3 py-2 flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
@@ -163,115 +169,20 @@ export default function ChatConversationSection() {
 
             {/* Chat Messages - Only show when not minimized */}
             {!isMinimized && (
-            <div className="flex-1 p-3 space-y-3 overflow-y-auto bg-gray-50">
-              {messages.slice(0, visibleMessages).map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex ${message.sender === 'customer' ? 'justify-end' : 'justify-start'} animate-fade-in`}
-                >
-                  <div
-                    className={`max-w-[85%] p-2 rounded-xl text-xs leading-relaxed ${
-                      message.sender === 'customer'
-                        ? 'bg-blue-500 text-white rounded-br-sm'
-                        : 'bg-white text-gray-800 rounded-bl-sm shadow-sm'
-                    }`}
-                  >
-                    <p>{message.text}</p>
-                    <p className={`text-xs mt-1 opacity-70 ${
-                      message.sender === 'customer' ? 'text-blue-100' : 'text-gray-500'
-                    }`}>
-                      {message.time}
-                    </p>
-                  </div>
-                </div>
-              ))}
-              
-              {visibleMessages < messages.length && (
-                <div className="flex justify-start">
-                  <div className="bg-white rounded-xl rounded-bl-sm p-3 shadow-sm">
-                    <div className="flex space-x-1">
-                      <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"></div>
-                      <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                      <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            )}
-
-            {/* Chat Input - Only show when not minimized */}
-            {!isMinimized && (
-            <div className="p-3 border-t bg-white">
-              <div className="flex items-center space-x-2">
-                <div className="flex-1 bg-gray-100 rounded-full px-3 py-2 border">
-                  <span className="text-gray-400 text-xs">Type a message...</span>
-                </div>
-                <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center">
-                  <span className="text-white text-xs">→</span>
-                </div>
-              </div>
-            </div>
-            )}
-          </div>
-        </div>
-
-        {/* Restart Button - Only show when not minimized */}
-        {!isMinimized && (
-        <div className="mt-3 text-center">
-          <button 
-            onClick={() => setVisibleMessages(0)}
-            className="text-primary hover:text-primary/80 text-xs font-medium bg-white rounded-full px-3 py-1 shadow-sm"
-          >
-            ↻ Restart
-          </button>
-        </div>
-        )}
-      </div>
-
-      {/* Mobile Section */}
-      <section className="py-16 bg-muted/50 xl:hidden">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-4">
-              Real <span className="text-primary">Conversations</span>
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              See how we help businesses like yours get professional websites at unbeatable prices
-            </p>
-          </div>
-
-          <div className="mx-auto w-80 h-[600px] bg-black rounded-[3rem] p-2 shadow-2xl">
-            <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden flex flex-col">
-              <div className="bg-primary px-4 py-3 flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                    <span className="text-primary font-bold text-sm">PP</span>
-                  </div>
-                  <div>
-                    <div className="text-white font-semibold text-sm">PerfectPixel AI</div>
-                    <div className="text-white/80 text-xs">Online now</div>
-                  </div>
-                </div>
-                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-              </div>
-
-              <div className="flex-1 p-4 space-y-4 overflow-y-auto">
+              <div className="flex-1 p-3 space-y-3 overflow-y-auto bg-gray-50">
                 {messages.slice(0, visibleMessages).map((message) => (
                   <div
                     key={message.id}
                     className={`flex ${message.sender === 'customer' ? 'justify-end' : 'justify-start'} animate-fade-in`}
                   >
-                    <div
-                      className={`max-w-[80%] p-3 rounded-2xl ${
-                        message.sender === 'customer'
-                          ? 'bg-blue-500 text-white rounded-br-md'
-                          : 'bg-gray-200 text-gray-800 rounded-bl-md'
-                      }`}
-                    >
-                      <p className="text-sm leading-relaxed">{message.text}</p>
+                    <div className={`max-w-xs rounded-xl p-3 shadow-sm ${
+                      message.sender === 'customer' 
+                        ? 'bg-primary text-white rounded-br-sm' 
+                        : 'bg-white text-gray-800 rounded-bl-sm'
+                    }`}>
+                      <p className="text-xs leading-relaxed">{message.text}</p>
                       <p className={`text-xs mt-1 ${
-                        message.sender === 'customer' ? 'text-blue-100' : 'text-gray-500'
+                        message.sender === 'customer' ? 'text-white/70' : 'text-gray-500'
                       }`}>
                         {message.time}
                       </p>
@@ -281,54 +192,96 @@ export default function ChatConversationSection() {
                 
                 {visibleMessages < messages.length && (
                   <div className="flex justify-start">
-                    <div className="bg-gray-200 rounded-2xl rounded-bl-md p-3">
+                    <div className="bg-white rounded-xl rounded-bl-sm p-3 shadow-sm">
                       <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                        <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"></div>
+                        <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                        <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                       </div>
                     </div>
                   </div>
                 )}
               </div>
+            )}
 
-              <div className="p-4 border-t bg-gray-50">
+            {/* Chat Input - Only show when not minimized */}
+            {!isMinimized && (
+              <div className="p-3 border-t bg-white">
                 <div className="flex items-center space-x-2">
-                  <div className="flex-1 bg-white rounded-full px-4 py-2 border">
-                    <span className="text-gray-400 text-sm">Type a message...</span>
+                  <div className="flex-1 bg-gray-100 rounded-full px-3 py-2 border">
+                    <span className="text-gray-400 text-xs">Type a message...</span>
                   </div>
-                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm">→</span>
+                  <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center">
+                    <span className="text-white text-xs">→</span>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
+        </div>
 
-          <div className="mt-8 text-center">
+        {/* Restart Button - Only show when not minimized */}
+        {!isMinimized && (
+          <div className="mt-3 text-center">
             <button 
               onClick={() => setVisibleMessages(0)}
-              className="text-primary hover:text-primary/80 text-sm font-medium"
+              className="text-primary hover:text-primary/80 text-xs font-medium bg-white rounded-full px-3 py-1 shadow-sm"
             >
-              ↻ Restart Conversation
+              ↻ Restart
             </button>
           </div>
+        )}
+      </div>
 
-          <div className="mt-8 text-center">
-            <p className="text-lg font-semibold mb-4">
-              Ready to start your own conversation?
+      {/* Mobile Section - Remove the large black section */}
+      <section className="py-16 bg-muted/50 xl:hidden">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold mb-4">Real Customer Conversation</h2>
+            <p className="text-muted-foreground">
+              See how we help small businesses get professional websites at unbeatable prices
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="btn-primary px-8 py-3 rounded-lg font-bold">
-                Get Your Website for $199
-              </button>
-              <button className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-lg font-bold transition-colors">
-                Chat with Us Now
-              </button>
+          </div>
+          
+          <div className="bg-white rounded-lg shadow-lg p-6 max-w-2xl mx-auto">
+            <div className="space-y-4 max-h-96 overflow-y-auto">
+              {messages.slice(0, 6).map((message) => (
+                <div
+                  key={message.id}
+                  className={`flex ${message.sender === 'customer' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div className={`max-w-xs rounded-lg p-3 ${
+                    message.sender === 'customer' 
+                      ? 'bg-primary text-white' 
+                      : 'bg-gray-100 text-gray-800'
+                  }`}>
+                    <p className="text-sm">{message.text}</p>
+                    <p className={`text-xs mt-1 ${
+                      message.sender === 'customer' ? 'text-white/70' : 'text-gray-500'
+                    }`}>
+                      {message.time}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-6 text-center space-y-4">
+              <p className="text-sm text-muted-foreground">
+                See the full conversation and get started today!
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <button className="bg-primary text-white hover:bg-primary/90 px-8 py-3 rounded-lg font-bold transition-colors">
+                  Get My Site for $199
+                </button>
+                <button className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-lg font-bold transition-colors">
+                  Chat with Us Now
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }
