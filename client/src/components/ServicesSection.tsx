@@ -53,6 +53,7 @@ export default function ServicesSection() {
       textColor: "text-white"
     },
     {
+      id: "hosting",
       title: "Secure Hosting",
       price: "$24.99",
       period: "/mo",
@@ -136,12 +137,15 @@ export default function ServicesSection() {
                 ))}
               </ul>
               
-              <Button 
-                className={`w-full text-lg font-bold h-auto transition-all duration-300 ${service.buttonClass}`}
-                onClick={() => handleBuyNow(service.title, service.price)}
-              >
-                BUY NOW
-              </Button>
+              <Link href={`/checkout?package=${service.id}`}>
+                <Button 
+                  className={`w-full text-lg font-bold h-auto transition-all duration-300 ${service.buttonClass}`}
+                  onClick={() => handleBuyNow(service.title, service.price, service.id)}
+                >
+                  <CreditCard className="w-5 h-5 mr-2" />
+                  BUY NOW
+                </Button>
+              </Link>
             </div>
           ))}
         </div>
