@@ -17,6 +17,8 @@ export default function HeroSection() {
     const video = videoRef.current;
     if (!video) return;
 
+    const handleError = (e: Event) => console.error('Video error:', e);
+
     const handleTimeUpdate = () => {
       const duration = video.duration;
       const currentTime = video.currentTime;
@@ -42,9 +44,11 @@ export default function HeroSection() {
     };
 
     video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('error', handleError);
     
     return () => {
       video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('error', handleError);
     };
   }, []);
 
