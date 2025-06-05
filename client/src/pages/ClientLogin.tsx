@@ -64,6 +64,14 @@ export default function ClientLogin() {
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Client Portal</h1>
           <p className="text-gray-600">Access your project dashboard</p>
+          <div className="mt-4">
+            <a 
+              href="/"
+              className="text-primary hover:text-primary/80 text-sm font-medium transition-colors"
+            >
+              ← Back to Main Website
+            </a>
+          </div>
         </div>
 
         <Card>

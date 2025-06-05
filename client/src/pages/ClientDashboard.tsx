@@ -92,10 +92,18 @@ export default function ClientDashboard() {
                 <p className="text-sm text-gray-500">{client.email}</p>
               </div>
             </div>
-            <Button variant="outline" onClick={handleLogout}>
-              <LogOut className="w-4 h-4 mr-2" />
-              Sign Out
-            </Button>
+            <div className="flex items-center space-x-4">
+              <a 
+                href="/"
+                className="text-gray-600 hover:text-primary transition-colors text-sm font-medium"
+              >
+                Main Website
+              </a>
+              <Button variant="outline" onClick={handleLogout}>
+                <LogOut className="w-4 h-4 mr-2" />
+                Sign Out
+              </Button>
+            </div>
           </div>
         </div>
       </header>
