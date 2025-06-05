@@ -1017,17 +1017,23 @@ export default function AdminDashboard() {
           </DialogContent>
         </Dialog>
 
-        {/* Portfolio Item Creation Dialog */}
-        <Dialog open={showNewPortfolioItem} onOpenChange={setShowNewPortfolioItem}>
+        {/* Portfolio Item Creation/Edit Dialog */}
+        <Dialog open={showNewPortfolioItem || !!editingPortfolioItem} onOpenChange={(open) => {
+          if (!open) {
+            setShowNewPortfolioItem(false);
+            setEditingPortfolioItem(null);
+            portfolioForm.reset();
+          }
+        }}>
           <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Create New Portfolio Item</DialogTitle>
+              <DialogTitle>{editingPortfolioItem ? 'Edit Portfolio Item' : 'Create New Portfolio Item'}</DialogTitle>
               <DialogDescription>
-                Add a new project to your portfolio
+                {editingPortfolioItem ? 'Update your portfolio item' : 'Add a new project to your portfolio'}
               </DialogDescription>
             </DialogHeader>
             <Form {...portfolioForm}>
-              <form onSubmit={portfolioForm.handleSubmit(onCreatePortfolioItem)} className="space-y-4">
+              <form onSubmit={portfolioForm.handleSubmit(editingPortfolioItem ? onUpdatePortfolioItem : onCreatePortfolioItem)} className="space-y-4">
                 <FormField
                   control={portfolioForm.control}
                   name="title"
@@ -1172,11 +1178,18 @@ export default function AdminDashboard() {
                   )}
                 />
                 <div className="flex justify-end space-x-2">
-                  <Button type="button" variant="outline" onClick={() => setShowNewPortfolioItem(false)}>
+                  <Button type="button" variant="outline" onClick={() => {
+                    setShowNewPortfolioItem(false);
+                    setEditingPortfolioItem(null);
+                    portfolioForm.reset();
+                  }}>
                     Cancel
                   </Button>
-                  <Button type="submit" disabled={createPortfolioItemMutation.isPending}>
-                    {createPortfolioItemMutation.isPending ? "Creating..." : "Create Item"}
+                  <Button type="submit" disabled={createPortfolioItemMutation.isPending || updatePortfolioItemMutation.isPending}>
+                    {editingPortfolioItem 
+                      ? (updatePortfolioItemMutation.isPending ? "Updating..." : "Update Item")
+                      : (createPortfolioItemMutation.isPending ? "Creating..." : "Create Item")
+                    }
                   </Button>
                 </div>
               </form>
