@@ -5,7 +5,7 @@ export default function ProcessSection() {
       number: "01",
       title: "Discovery",
       description: "Initial consultation to understand your needs and goals",
-      icon: "fas fa-lightbulb",
+      icon: "fas fa-search",
       color: "from-primary to-yellow-600",
       textColor: "text-primary"
     },
@@ -13,7 +13,7 @@ export default function ProcessSection() {
       number: "02", 
       title: "AI Design",
       description: "Creating your custom design using advanced AI tools",
-      icon: "fas fa-robot",
+      icon: "fas fa-paint-brush",
       color: "from-accent to-blue-600",
       textColor: "text-accent"
     },
@@ -21,7 +21,7 @@ export default function ProcessSection() {
       number: "03",
       title: "Development", 
       description: "Building your site with cutting-edge technology",
-      icon: "fas fa-code",
+      icon: "fas fa-laptop-code",
       color: "from-green-500 to-emerald-600",
       textColor: "text-green-500"
     },
@@ -29,7 +29,7 @@ export default function ProcessSection() {
       number: "04",
       title: "Launch",
       description: "Final testing and deployment of your website",
-      icon: "fas fa-rocket",
+      icon: "fas fa-globe",
       color: "from-purple-500 to-violet-600", 
       textColor: "text-purple-500"
     }
