@@ -44,7 +44,7 @@ export default function ServicesSection() {
       ],
       popular: true,
       buttonClass: "bg-yellow-500 hover:bg-yellow-600 text-black font-bold text-lg py-4",
-      bgClass: "bg-teal-500",
+      bgClass: "bg-teal-600",
       borderClass: "border-teal-400",
       textColor: "text-white"
     },
