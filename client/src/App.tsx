@@ -16,6 +16,8 @@ import Privacy from "@/pages/Privacy";
 import ClientLogin from "@/pages/ClientLogin";
 import ClientDashboard from "@/pages/ClientDashboard";
 import AdminDashboard from "@/pages/AdminDashboard";
+import Checkout from "@/pages/Checkout";
+import PaymentSuccess from "@/pages/PaymentSuccess";
 import NotFound from "@/pages/not-found";
 
 function Router() {

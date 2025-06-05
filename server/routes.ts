@@ -1,7 +1,21 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertContactSchema } from "@shared/schema";
+import { 
+  insertContactSchema, 
+  insertClientProjectSchema, 
+  insertProjectUpdateSchema, 
+  insertBlogPostSchema, 
+  insertPortfolioItemSchema 
+} from "@shared/schema";
+import Stripe from "stripe";
+
+if (!process.env.STRIPE_SECRET_KEY) {
+  throw new Error('Missing required Stripe secret: STRIPE_SECRET_KEY');
+}
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: "2025-05-28.basil",
+});
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -336,6 +350,58 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Health check endpoint
   app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  });
+
+  // Stripe payment routes
+  app.post("/api/create-payment-intent", async (req, res) => {
+    try {
+      const { amount, packageId, packageName } = req.body;
+      
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: Math.round(amount), // Amount already in cents
+        currency: "usd",
+        metadata: {
+          packageId,
+          packageName,
+        },
+        automatic_payment_methods: {
+          enabled: true,
+        },
+      });
+      
+      res.json({ clientSecret: paymentIntent.client_secret });
+    } catch (error: any) {
+      res
+        .status(500)
+        .json({ message: "Error creating payment intent: " + error.message });
+    }
+  });
+
+  // Webhook for payment confirmations
+  app.post("/api/webhook", async (req, res) => {
+    const sig = req.headers['stripe-signature'];
+    let event;
+
+    try {
+      // In production, you'd use your webhook secret
+      event = stripe.webhooks.constructEvent(req.body, sig as string, process.env.STRIPE_WEBHOOK_SECRET || '');
+    } catch (err: any) {
+      console.log(`Webhook signature verification failed.`, err.message);
+      return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
+
+    // Handle the event
+    switch (event.type) {
+      case 'payment_intent.succeeded':
+        const paymentIntent = event.data.object;
+        console.log('Payment succeeded:', paymentIntent.id);
+        // Here you could create a client project or send confirmation emails
+        break;
+      default:
+        console.log(`Unhandled event type ${event.type}`);
+    }
+
+    res.json({ received: true });
   });
 
   const httpServer = createServer(app);
