@@ -57,11 +57,14 @@ export default function Navigation() {
           
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <button className="text-white hover:text-primary transition-colors duration-300">
-              <i className="fas fa-sign-in-alt mr-2"></i>Login
-            </button>
+            <Link 
+              href="/client/login"
+              className="text-white hover:text-primary transition-colors duration-300"
+            >
+              Client Portal
+            </Link>
             <button className="btn-primary px-4 py-2 rounded-lg font-semibold">
-              Sign Up
+              Get Started
             </button>
           </div>
           
