@@ -2,6 +2,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Check, Shield, Clock, Users } from 'lucide-react';
+import { SiFacebook, SiInstagram, SiX } from 'react-icons/si';
 
 export default function About() {
   return (
@@ -15,13 +16,28 @@ export default function About() {
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1920&h=1080')] bg-cover bg-center"></div>
         </div>
         
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-white">
-            About <span className="text-primary">Us</span>
-          </h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto">
-            Our mission is simple: to deliver such a great experience that choosing us again is an easy decision.
-          </p>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Social Media Icons */}
+          <div className="absolute left-8 top-1/2 transform -translate-y-1/2 hidden lg:flex flex-col space-y-6">
+            <a href="#" className="text-cyan-400 hover:text-cyan-300 transition-colors">
+              <SiFacebook className="h-6 w-6" />
+            </a>
+            <a href="#" className="text-cyan-400 hover:text-cyan-300 transition-colors">
+              <SiInstagram className="h-6 w-6" />
+            </a>
+            <a href="#" className="text-cyan-400 hover:text-cyan-300 transition-colors">
+              <SiX className="h-6 w-6" />
+            </a>
+          </div>
+          
+          <div className="text-center">
+            <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-white">
+              About <span className="text-primary">Us</span>
+            </h1>
+            <p className="text-xl text-white/90 max-w-2xl mx-auto">
+              Our mission is simple: to deliver such a great experience that choosing us again is an easy decision.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -160,7 +176,7 @@ export default function About() {
       {/* CTA Section */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-primary to-primary/80 rounded-3xl p-8 text-center text-white">
+          <div className="bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-3xl p-8 text-center text-white">
             <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Online Presence?</h2>
             <p className="text-lg mb-8 opacity-90">
               Let's collaborate to create a website that truly represents your brand and drives results.
