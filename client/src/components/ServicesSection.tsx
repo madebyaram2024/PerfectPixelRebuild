@@ -73,10 +73,13 @@ export default function ServicesSection() {
   return (
     <section id="services" className="py-24 bg-black text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-white">Services</h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Choose the perfect plan for your business needs and budget.
+        <div className="text-center mb-20">
+          <h2 className="text-5xl lg:text-7xl font-black mb-8 text-white tracking-tight">
+            Our <span className="text-primary">Services</span>
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-primary to-yellow-400 mx-auto mb-8"></div>
+          <p className="text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+            Choose the perfect plan for your business needs and budget
           </p>
         </div>
         
@@ -84,7 +87,7 @@ export default function ServicesSection() {
           {services.map((service, index) => (
             <div 
               key={index}
-              className={`rounded-2xl p-8 relative border-2 transition-all duration-300 hover:scale-105 ${service.bgClass} ${service.borderClass}`}
+              className={`rounded-3xl p-10 relative border-2 transition-all duration-500 hover:scale-105 hover:rotate-1 shadow-2xl hover:shadow-primary/20 ${service.bgClass} ${service.borderClass}`}
             >
               {service.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">

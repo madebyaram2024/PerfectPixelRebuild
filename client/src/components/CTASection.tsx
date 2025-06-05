@@ -13,11 +13,11 @@ export default function CTASection() {
   return (
     <section className="py-24 relative overflow-hidden" style={{ backgroundColor: '#09bba5' }}>
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-4xl lg:text-6xl font-bold mb-8 text-white">
+        <h2 className="text-5xl lg:text-7xl font-black mb-10 text-white tracking-tight text-shadow-glow">
           Ready to Transform Your 
-          <span className="text-yellow-300"> Online Presence?</span>
+          <span className="block text-yellow-300 floating-animation"> Online Presence?</span>
         </h2>
-        <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
+        <p className="text-2xl text-white/90 mb-16 max-w-3xl mx-auto leading-relaxed">
           Let's collaborate to create a website that truly represents your brand and drives results.
         </p>
         <div className="flex flex-col sm:flex-row gap-6 justify-center">

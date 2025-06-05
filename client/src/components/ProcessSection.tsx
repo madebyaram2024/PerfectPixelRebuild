@@ -1,4 +1,3 @@
-
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
@@ -62,21 +61,15 @@ export default function ProcessSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-20">
-          <Badge variant="outline" className="mb-4 text-primary border-primary/20">
-            Our Process
-          </Badge>
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            From Concept to Launch in{" "}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              7 Days
-            </span>
+          <h2 className="text-5xl lg:text-7xl font-black mb-8 tracking-tight">
+            Our <span className="gradient-text">Process</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Our streamlined, AI-enhanced workflow delivers professional websites faster than traditional agencies, 
-            without compromising on quality or creativity.
+          <div className="w-24 h-1 bg-gradient-to-r from-primary to-yellow-400 mx-auto mb-8"></div>
+          <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            Our streamlined approach ensures a smooth and efficient website development journey
           </p>
         </div>
-        
+
         {/* Process Cards */}
         <div className="grid lg:grid-cols-2 gap-8 mb-16">
           {steps.map((step, index) => (
@@ -92,7 +85,7 @@ export default function ProcessSection() {
                       <span className="text-3xl font-bold text-muted-foreground/50">{step.number}</span>
                     </div>
                   </div>
-                  
+
                   {/* Content */}
                   <div className="flex-1 pt-2">
                     <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors duration-300">
@@ -113,7 +106,7 @@ export default function ProcessSection() {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
           </div>
-          
+
           <div className="relative flex justify-center items-center space-x-8 py-8">
             <div className="flex items-center space-x-8">
               <div className="w-4 h-4 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 shadow-lg"></div>
@@ -122,7 +115,7 @@ export default function ProcessSection() {
               <div className="w-4 h-4 rounded-full bg-gradient-to-r from-purple-400 to-pink-500 shadow-lg"></div>
             </div>
           </div>
-          
+
           <div className="text-center mt-8">
             <p className="text-sm text-muted-foreground font-medium">
               Complete project delivery in just one week

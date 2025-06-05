@@ -70,37 +70,37 @@ export default function HeroSection() {
       
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="space-y-8">
-            <h1 className="text-5xl lg:text-7xl font-black mb-6 leading-tight">
-            Custom-Built 
-            <span className="text-primary"> 5 Page</span> 
-            Websites for only 
-            <span className="text-primary"> $199</span>
+        <div className="space-y-10">
+            <h1 className="text-6xl lg:text-8xl font-black mb-8 leading-tight tracking-tight">
+            <span className="block text-white">Custom-Built</span>
+            <span className="block text-primary drop-shadow-lg">5 Page Websites</span> 
+            <span className="block text-white">for only</span>
+            <span className="block text-primary text-7xl lg:text-9xl drop-shadow-lg">$199</span>
           </h1>
-          <p className="text-xl lg:text-2xl text-muted-foreground mb-8 leading-relaxed">
+          <p className="text-2xl lg:text-3xl text-white/90 mb-10 leading-relaxed font-medium max-w-4xl mx-auto">
             No gimmicks. No hidden fees. Real devs, AI-boosted workflow, done fast.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Button 
-              className="btn-primary px-8 py-4 text-lg font-bold h-auto"
+              className="btn-primary px-12 py-6 text-xl font-bold h-auto rounded-full shadow-2xl hover:shadow-primary/50 transform hover:scale-105 transition-all duration-300"
               onClick={() => {
                 handleGetSiteClick();
                 window.open('https://buy.stripe.com/your-stripe-payment-link', '_blank');
               }}
             >
-              Get My Site for $199
+              🚀 Get My Site for $199
             </Button>
             <Button 
               variant="outline"
-              className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-4 text-lg font-bold h-auto"
+              className="border-3 border-white text-white hover:bg-white hover:text-black px-12 py-6 text-xl font-bold h-auto rounded-full backdrop-blur-sm bg-white/10 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
               onClick={handleSeeIncludedClick}
             >
-              See What's Included <i className="fas fa-arrow-right ml-2"></i>
+              See What's Included ✨
             </Button>
           </div>
-          <div className="mt-8 flex items-center justify-center">
-            <div className="bg-primary/20 px-4 py-2 rounded-full">
-              <span className="text-primary font-bold">Go LIVE in 7 Days!</span>
+          <div className="mt-12 flex items-center justify-center">
+            <div className="bg-gradient-to-r from-primary to-yellow-400 px-8 py-4 rounded-full shadow-2xl animate-pulse">
+              <span className="text-black font-bold text-xl">⚡ Go LIVE in 7 Days!</span>
             </div>
           </div>
         </div>
