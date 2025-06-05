@@ -1,5 +1,6 @@
 
 import { Link } from 'wouter';
+import { FaFacebook, FaInstagram, FaXTwitter, FaLinkedin, FaGithub } from 'react-icons/fa6';
 
 export default function Footer() {
   return (
@@ -20,38 +21,38 @@ export default function Footer() {
             <div className="flex space-x-4 mb-6">
               <a 
                 href="#" 
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors transform hover:scale-110 duration-200"
                 aria-label="Facebook"
               >
-                <i className="fab fa-facebook text-xl"></i>
+                <FaFacebook className="text-xl" />
               </a>
               <a 
                 href="#" 
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors transform hover:scale-110 duration-200"
                 aria-label="Instagram"
               >
-                <i className="fab fa-instagram text-xl"></i>
+                <FaInstagram className="text-xl" />
               </a>
               <a 
                 href="#" 
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors transform hover:scale-110 duration-200"
                 aria-label="X (Twitter)"
               >
-                <i className="fab fa-x-twitter text-xl"></i>
+                <FaXTwitter className="text-xl" />
               </a>
               <a 
                 href="#" 
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors transform hover:scale-110 duration-200"
                 aria-label="LinkedIn"
               >
-                <i className="fab fa-linkedin text-xl"></i>
+                <FaLinkedin className="text-xl" />
               </a>
               <a 
                 href="#" 
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors transform hover:scale-110 duration-200"
                 aria-label="GitHub"
               >
-                <i className="fab fa-github text-xl"></i>
+                <FaGithub className="text-xl" />
               </a>
             </div>
           </div>
