@@ -135,8 +135,8 @@ export default function ChatConversationSection() {
 
   return (
     <div className="relative min-h-screen">
-      {/* Left Side Sticky Phone */}
-      <div className="hidden xl:block fixed left-8 top-1/2 -translate-y-1/2 z-40">
+      {/* Right Side Sticky Phone - Starts from top */}
+      <div className="hidden xl:block fixed right-8 top-24 z-40">
         <div className="w-72 h-[520px] bg-black rounded-[2.5rem] p-2 shadow-2xl">
           <div className="w-full h-full bg-white rounded-[2rem] overflow-hidden flex flex-col">
             {/* Phone Header */}
