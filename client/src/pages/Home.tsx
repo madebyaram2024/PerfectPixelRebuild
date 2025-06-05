@@ -4,6 +4,7 @@ import ProcessSection from '@/components/ProcessSection';
 import ProjectsSection from '@/components/ProjectsSection';
 import ServicesSection from '@/components/ServicesSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
+import ChatConversationSection from '@/components/ChatConversationSection';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 
@@ -16,6 +17,7 @@ export default function Home() {
       <ProjectsSection />
       <ServicesSection />
       <TestimonialsSection />
+      <ChatConversationSection />
       <CTASection />
       <Footer />
     </div>

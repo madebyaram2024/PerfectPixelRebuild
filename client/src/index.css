@@ -147,6 +147,21 @@
     box-shadow: 0 0 20px rgba(9, 187, 165, 0.5);
     transition: box-shadow 0.3s ease;
   }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
   
   .glow-effect:hover {
     box-shadow: 0 0 40px rgba(9, 187, 165, 0.8);
