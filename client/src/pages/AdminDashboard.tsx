@@ -95,6 +95,8 @@ export default function AdminDashboard() {
   const [showNewUpdate, setShowNewUpdate] = useState(false);
   const [showNewBlogPost, setShowNewBlogPost] = useState(false);
   const [showNewPortfolioItem, setShowNewPortfolioItem] = useState(false);
+  const [editingBlogPost, setEditingBlogPost] = useState<any>(null);
+  const [editingPortfolioItem, setEditingPortfolioItem] = useState<any>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -251,6 +253,92 @@ export default function AdminDashboard() {
 
   const onCreatePortfolioItem = (data: PortfolioItemForm) => {
     createPortfolioItemMutation.mutate(data);
+  };
+
+  const updateBlogPostMutation = useMutation({
+    mutationFn: async (data: { id: number; updates: Partial<BlogPostForm> }) => {
+      const response = await apiRequest('PUT', `/api/admin/blog-posts/${data.id}`, data.updates);
+      return await response.json();
+    },
+    onSuccess: () => {
+      toast({ title: "Blog post updated successfully" });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/blog-posts'] });
+      setEditingBlogPost(null);
+      blogForm.reset();
+    },
+    onError: (error) => {
+      toast({
+        title: "Failed to update blog post",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const updatePortfolioItemMutation = useMutation({
+    mutationFn: async (data: { id: number; updates: Partial<PortfolioItemForm> }) => {
+      const response = await apiRequest('PUT', `/api/admin/portfolio-items/${data.id}`, data.updates);
+      return await response.json();
+    },
+    onSuccess: () => {
+      toast({ title: "Portfolio item updated successfully" });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/portfolio-items'] });
+      setEditingPortfolioItem(null);
+      portfolioForm.reset();
+    },
+    onError: (error) => {
+      toast({
+        title: "Failed to update portfolio item",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const onUpdateBlogPost = (data: BlogPostForm) => {
+    if (editingBlogPost) {
+      updateBlogPostMutation.mutate({ id: editingBlogPost.id, updates: data });
+    }
+  };
+
+  const onUpdatePortfolioItem = (data: PortfolioItemForm) => {
+    if (editingPortfolioItem) {
+      updatePortfolioItemMutation.mutate({ id: editingPortfolioItem.id, updates: data });
+    }
+  };
+
+  const handleEditBlogPost = (post: any) => {
+    setEditingBlogPost(post);
+    blogForm.reset({
+      title: post.title,
+      slug: post.slug,
+      excerpt: post.excerpt,
+      content: post.content,
+      author: post.author,
+      status: post.status,
+      tags: post.tags || [],
+      publishedAt: post.publishedAt || undefined,
+    });
+  };
+
+  const handleEditPortfolioItem = (item: any) => {
+    setEditingPortfolioItem(item);
+    portfolioForm.reset({
+      title: item.title,
+      slug: item.slug,
+      description: item.description,
+      shortDescription: item.shortDescription,
+      featuredImage: item.featuredImage,
+      category: item.category,
+      clientName: item.clientName || undefined,
+      projectUrl: item.projectUrl || undefined,
+      githubUrl: item.githubUrl || undefined,
+      status: item.status,
+      featured: item.featured || false,
+      gallery: item.gallery || [],
+      technologies: item.technologies || [],
+      completedAt: item.completedAt || undefined,
+    });
   };
 
   return (
@@ -719,7 +807,11 @@ export default function AdminDashboard() {
                             <Button variant="outline" size="sm">
                               <Eye className="w-4 h-4" />
                             </Button>
-                            <Button variant="outline" size="sm">
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              onClick={() => handleEditBlogPost(post)}
+                            >
                               <Edit className="w-4 h-4" />
                             </Button>
                           </div>
@@ -777,7 +869,11 @@ export default function AdminDashboard() {
                             <Button variant="outline" size="sm">
                               <Eye className="w-4 h-4" />
                             </Button>
-                            <Button variant="outline" size="sm">
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              onClick={() => handleEditPortfolioItem(item)}
+                            >
                               <Edit className="w-4 h-4" />
                             </Button>
                           </div>
@@ -791,17 +887,23 @@ export default function AdminDashboard() {
           </TabsContent>
         </Tabs>
 
-        {/* Blog Post Creation Dialog */}
-        <Dialog open={showNewBlogPost} onOpenChange={setShowNewBlogPost}>
+        {/* Blog Post Creation/Edit Dialog */}
+        <Dialog open={showNewBlogPost || !!editingBlogPost} onOpenChange={(open) => {
+          if (!open) {
+            setShowNewBlogPost(false);
+            setEditingBlogPost(null);
+            blogForm.reset();
+          }
+        }}>
           <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Create New Blog Post</DialogTitle>
+              <DialogTitle>{editingBlogPost ? 'Edit Blog Post' : 'Create New Blog Post'}</DialogTitle>
               <DialogDescription>
-                Add a new blog post to your website
+                {editingBlogPost ? 'Update your blog post' : 'Add a new blog post to your website'}
               </DialogDescription>
             </DialogHeader>
             <Form {...blogForm}>
-              <form onSubmit={blogForm.handleSubmit(onCreateBlogPost)} className="space-y-4">
+              <form onSubmit={blogForm.handleSubmit(editingBlogPost ? onUpdateBlogPost : onCreateBlogPost)} className="space-y-4">
                 <FormField
                   control={blogForm.control}
                   name="title"
@@ -896,11 +998,18 @@ export default function AdminDashboard() {
                   />
                 </div>
                 <div className="flex justify-end space-x-2">
-                  <Button type="button" variant="outline" onClick={() => setShowNewBlogPost(false)}>
+                  <Button type="button" variant="outline" onClick={() => {
+                    setShowNewBlogPost(false);
+                    setEditingBlogPost(null);
+                    blogForm.reset();
+                  }}>
                     Cancel
                   </Button>
-                  <Button type="submit" disabled={createBlogPostMutation.isPending}>
-                    {createBlogPostMutation.isPending ? "Creating..." : "Create Post"}
+                  <Button type="submit" disabled={createBlogPostMutation.isPending || updateBlogPostMutation.isPending}>
+                    {editingBlogPost 
+                      ? (updateBlogPostMutation.isPending ? "Updating..." : "Update Post")
+                      : (createBlogPostMutation.isPending ? "Creating..." : "Create Post")
+                    }
                   </Button>
                 </div>
               </form>
