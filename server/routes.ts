@@ -9,6 +9,7 @@ import {
   insertPortfolioItemSchema 
 } from "@shared/schema";
 import Stripe from "stripe";
+import nodemailer from "nodemailer";
 
 if (!process.env.STRIPE_SECRET_KEY) {
   throw new Error('Missing required Stripe secret: STRIPE_SECRET_KEY');
@@ -59,7 +60,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Contact form API
+  // Contact form API with Zoho email
   app.post('/api/contact', async (req, res) => {
     try {
       // Validate the request body
@@ -68,10 +69,47 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Create the contact
       const contact = await storage.createContact(validatedData);
       
-      // In a real application, you might want to:
-      // 1. Send an email notification to the team
-      // 2. Send a confirmation email to the user
-      // 3. Add to a CRM system
+      // Configure Zoho SMTP transporter
+      const transporter = nodemailer.createTransport({
+        host: 'smtp.zoho.com',
+        port: 587,
+        secure: false,
+        auth: {
+          user: process.env.ZOHO_EMAIL,
+          pass: process.env.ZOHO_PASSWORD
+        }
+      });
+      
+      // Email content
+      const mailOptions = {
+        from: process.env.ZOHO_EMAIL,
+        to: 'info@perfectpixelai.com',
+        subject: `New Contact Form Submission - ${validatedData.service}`,
+        html: `
+          <h2>New Contact Form Submission</h2>
+          <div style="font-family: Arial, sans-serif; max-width: 600px;">
+            <p><strong>Name:</strong> ${validatedData.name}</p>
+            <p><strong>Email:</strong> ${validatedData.email}</p>
+            <p><strong>Phone:</strong> ${validatedData.phone}</p>
+            <p><strong>Service Interested In:</strong> ${validatedData.service}</p>
+            <p><strong>Message:</strong></p>
+            <div style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 10px 0;">
+              ${validatedData.message.replace(/\n/g, '<br>')}
+            </div>
+            <hr style="margin: 20px 0;">
+            <p style="color: #666; font-size: 12px;">
+              <em>Submitted at: ${new Date().toLocaleString()}</em><br>
+              <em>Contact ID: ${contact.id}</em>
+            </p>
+          </div>
+        `,
+        replyTo: validatedData.email
+      };
+      
+      // Send email notification (non-blocking)
+      transporter.sendMail(mailOptions).catch((emailError: any) => {
+        console.error('Email send error (non-blocking):', emailError);
+      });
       
       res.status(201).json({ 
         message: "Contact form submitted successfully",
