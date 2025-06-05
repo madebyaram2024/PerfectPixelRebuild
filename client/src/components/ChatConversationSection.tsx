@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function ChatConversationSection() {
   const [visibleMessages, setVisibleMessages] = useState(0);
   const [isMinimized, setIsMinimized] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const messages = [
     {
@@ -140,6 +141,13 @@ export default function ChatConversationSection() {
     return () => clearInterval(timer);
   }, [messages.length]);
 
+  // Auto scroll to bottom when new messages appear
+  useEffect(() => {
+    if (messagesEndRef.current && !isMinimized) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [visibleMessages, isMinimized]);
+
   return (
     <>
       {/* Bottom Right Chat Phone */}
@@ -201,6 +209,8 @@ export default function ChatConversationSection() {
                     </div>
                   </div>
                 )}
+                {/* Invisible element to scroll to */}
+                <div ref={messagesEndRef} />
               </div>
             )}
 
