@@ -13,6 +13,8 @@ import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import Blog from "@/pages/Blog";
 import Privacy from "@/pages/Privacy";
+import ClientLogin from "@/pages/ClientLogin";
+import ClientDashboard from "@/pages/ClientDashboard";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -28,6 +30,8 @@ function Router() {
       <Route path="/contact" component={Contact} />
       <Route path="/blog" component={Blog} />
       <Route path="/privacy" component={Privacy} />
+      <Route path="/client/login" component={ClientLogin} />
+      <Route path="/client/dashboard" component={ClientDashboard} />
       <Route component={NotFound} />
     </Switch>
   );
