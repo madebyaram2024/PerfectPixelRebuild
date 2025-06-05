@@ -136,7 +136,7 @@ export default function ChatConversationSection() {
         }
         return prev;
       });
-    }, 1200);
+    }, 3000);
 
     return () => clearInterval(timer);
   }, [messages.length]);
