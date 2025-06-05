@@ -3,9 +3,12 @@ import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { X } from 'lucide-react';
 import type { Project } from '@shared/schema';
 
 export default function ProjectsSection() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { data: projects, isLoading, error } = useQuery<Project[]>({
     queryKey: ['/api/projects'],
   });
@@ -49,12 +52,17 @@ export default function ProjectsSection() {
           ) : projects && projects.length > 0 ? (
             // Projects data
             projects.slice(0, 3).map((project) => (
-              <div key={project.id} className="group cursor-pointer">
-                <img 
-                  src={project.imageUrl} 
-                  alt={project.title}
-                  className="w-full h-64 object-cover rounded-xl mb-4 group-hover:scale-105 transition-transform duration-300"
-                />
+              <div key={project.id} className="group">
+                <div 
+                  className="cursor-pointer"
+                  onClick={() => setSelectedImage(project.imageUrl)}
+                >
+                  <img 
+                    src={project.imageUrl} 
+                    alt={project.title}
+                    className="w-full h-64 object-cover rounded-xl mb-4 group-hover:scale-105 transition-transform duration-300 shadow-lg"
+                  />
+                </div>
                 <div className="p-6">
                   <Badge 
                     variant="secondary"
@@ -86,6 +94,28 @@ export default function ProjectsSection() {
           </Button>
         </div>
       </div>
+
+      {/* Image Modal */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-w-4xl max-h-full">
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute -top-4 -right-4 bg-white rounded-full p-2 shadow-lg hover:scale-110 transition-transform"
+            >
+              <X className="w-6 h-6 text-black" />
+            </button>
+            <img 
+              src={selectedImage}
+              alt="Project preview"
+              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }

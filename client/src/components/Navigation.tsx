@@ -29,10 +29,11 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2" onClick={closeMobileMenu}>
-            <Code className="text-primary text-xl" />
+            <span className="text-green-500 text-xl font-bold">{'</'}</span>
             <span className="text-xl font-bold">
-              PerfectPixel<span className="text-primary">AI</span>
+              Perfect<span className="text-green-500">Pixel</span><span className="text-white">AI</span>
             </span>
+            <span className="text-green-500 text-xl font-bold">{'>'}</span>
           </Link>
           
           {/* Desktop Navigation */}
@@ -43,8 +44,8 @@ export default function Navigation() {
                 href={link.href}
                 className={`transition-colors duration-300 ${
                   location === link.href 
-                    ? 'text-primary' 
-                    : 'text-white hover:text-primary'
+                    ? 'text-green-500 font-bold' 
+                    : 'text-white hover:text-green-500'
                 }`}
               >
                 {link.label}
@@ -82,8 +83,8 @@ export default function Navigation() {
                   href={link.href}
                   className={`block px-3 py-2 transition-colors ${
                     location === link.href 
-                      ? 'text-primary' 
-                      : 'text-white hover:text-primary'
+                      ? 'text-green-500 font-bold' 
+                      : 'text-white hover:text-green-500'
                   }`}
                   onClick={closeMobileMenu}
                 >

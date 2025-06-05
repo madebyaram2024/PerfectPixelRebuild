@@ -1,3 +1,4 @@
+
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Check } from 'lucide-react';
@@ -23,7 +24,7 @@ export default function ServicesSection() {
         "Basic contact form"
       ],
       popular: false,
-      buttonClass: "bg-muted-foreground text-foreground hover:bg-muted-foreground/80"
+      buttonClass: "bg-yellow-500 text-black hover:bg-yellow-600 font-bold border-2 border-gray-300"
     },
     {
       title: "New Website Build",
@@ -39,7 +40,7 @@ export default function ServicesSection() {
         "Basic contact form"
       ],
       popular: true,
-      buttonClass: "btn-primary animate-glow"
+      buttonClass: "bg-white text-black hover:bg-gray-100 font-bold"
     },
     {
       title: "Secure Hosting",
@@ -56,16 +57,16 @@ export default function ServicesSection() {
         "100% US Based"
       ],
       popular: false,
-      buttonClass: "bg-accent text-accent-foreground hover:bg-accent/80"
+      buttonClass: "bg-yellow-500 text-black hover:bg-yellow-600 font-bold border-2 border-gray-300"
     }
   ];
 
   return (
-    <section id="services" className="py-24">
+    <section id="services" className="py-24 bg-black text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">Services</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-white">Services</h2>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Choose the perfect plan for your business needs and budget.
           </p>
         </div>
@@ -74,24 +75,28 @@ export default function ServicesSection() {
           {services.map((service, index) => (
             <div 
               key={index}
-              className={`service-card rounded-2xl p-8 relative ${
-                service.popular ? 'border-primary' : ''
+              className={`rounded-2xl p-8 relative border-2 transition-all duration-300 hover:scale-105 ${
+                service.popular 
+                  ? 'bg-teal-500 border-teal-400 shadow-2xl shadow-teal-500/50' 
+                  : 'bg-gray-900 border-gray-700 hover:border-gray-500'
               }`}
             >
               {service.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <Badge className="bg-primary text-primary-foreground px-4 py-2">
-                    Popular
+                  <Badge className="bg-white text-teal-500 px-6 py-2 text-lg font-bold">
+                    MOST POPULAR
                   </Badge>
                 </div>
               )}
               
               <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
-                <div className="text-4xl font-black text-primary mb-2">
+                <h3 className={`text-3xl font-bold mb-4 ${service.popular ? 'text-white' : 'text-white'}`}>
+                  {service.title}
+                </h3>
+                <div className={`text-5xl font-black mb-2 ${service.popular ? 'text-white' : 'text-primary'}`}>
                   {service.price}
                   {service.period && (
-                    <span className="text-lg font-normal text-muted-foreground">
+                    <span className="text-xl font-normal text-gray-400">
                       {service.period}
                     </span>
                   )}
@@ -101,14 +106,20 @@ export default function ServicesSection() {
               <ul className="space-y-4 mb-8">
                 {service.features.map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-start">
-                    <Check className="text-primary mr-3 mt-0.5 h-4 w-4 flex-shrink-0" />
-                    <span className="text-sm">{feature}</span>
+                    <Check className={`mr-4 mt-1 h-6 w-6 flex-shrink-0 ${
+                      service.popular ? 'text-white' : 'text-primary'
+                    }`} />
+                    <span className={`text-lg leading-relaxed ${
+                      service.popular ? 'text-white' : 'text-gray-300'
+                    }`}>
+                      {feature}
+                    </span>
                   </li>
                 ))}
               </ul>
               
               <Button 
-                className={`w-full py-4 text-lg font-bold h-auto ${service.buttonClass}`}
+                className={`w-full py-6 text-xl font-bold h-auto transition-all duration-300 ${service.buttonClass}`}
                 onClick={() => handleBuyNow(service.title, service.price)}
               >
                 BUY NOW
