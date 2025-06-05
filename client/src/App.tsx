@@ -18,6 +18,7 @@ import ClientDashboard from "@/pages/ClientDashboard";
 import AdminDashboard from "@/pages/AdminDashboard";
 import Checkout from "@/pages/Checkout";
 import PaymentSuccess from "@/pages/PaymentSuccess";
+import BlogEditor from "@/pages/BlogEditor";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -36,6 +37,10 @@ function Router() {
       <Route path="/client/login" component={ClientLogin} />
       <Route path="/client/dashboard" component={ClientDashboard} />
       <Route path="/admin" component={AdminDashboard} />
+      <Route path="/admin/blog/new" component={BlogEditor} />
+      <Route path="/admin/blog/edit/:id" component={BlogEditor} />
+      <Route path="/checkout" component={Checkout} />
+      <Route path="/payment-success" component={PaymentSuccess} />
       <Route component={NotFound} />
     </Switch>
   );

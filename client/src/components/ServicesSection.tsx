@@ -1,16 +1,19 @@
 
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Check } from 'lucide-react';
+import { Check, CreditCard } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
+import { Link } from 'wouter';
 
 export default function ServicesSection() {
-  const handleBuyNow = (service: string, price: string) => {
+  const handleBuyNow = (service: string, price: string, packageId: string) => {
     trackEvent('service_buy_click', 'services', service, parseFloat(price.replace('$', '')));
+    // Navigation will be handled by the Link component
   };
 
   const services = [
     {
+      id: "redesign",
       title: "Website Redesign",
       price: "$149.99",
       features: [
@@ -30,6 +33,7 @@ export default function ServicesSection() {
       textColor: "text-white"
     },
     {
+      id: "new-build",
       title: "New Website Build",
       price: "$199.99",
       features: [
