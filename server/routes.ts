@@ -139,6 +139,114 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Blog management routes
+  app.get('/api/admin/blog-posts', async (req, res) => {
+    try {
+      const posts = await storage.getBlogPosts();
+      res.json(posts);
+    } catch (error) {
+      console.error("Error fetching blog posts:", error);
+      res.status(500).json({ message: "Failed to fetch blog posts" });
+    }
+  });
+
+  app.get('/api/blog-posts', async (req, res) => {
+    try {
+      const posts = await storage.getPublishedBlogPosts();
+      res.json(posts);
+    } catch (error) {
+      console.error("Error fetching published blog posts:", error);
+      res.status(500).json({ message: "Failed to fetch blog posts" });
+    }
+  });
+
+  app.post('/api/admin/blog-posts', async (req, res) => {
+    try {
+      const postData = insertBlogPostSchema.parse(req.body);
+      const post = await storage.createBlogPost(postData);
+      res.json(post);
+    } catch (error) {
+      console.error("Error creating blog post:", error);
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Invalid blog post data", errors: error.errors });
+      } else {
+        res.status(500).json({ message: "Failed to create blog post" });
+      }
+    }
+  });
+
+  app.put('/api/admin/blog-posts/:id', async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const updateData = req.body;
+      const post = await storage.updateBlogPost(id, updateData);
+      res.json(post);
+    } catch (error) {
+      console.error("Error updating blog post:", error);
+      res.status(500).json({ message: "Failed to update blog post" });
+    }
+  });
+
+  app.delete('/api/admin/blog-posts/:id', async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await storage.deleteBlogPost(id);
+      res.json({ message: "Blog post deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting blog post:", error);
+      res.status(500).json({ message: "Failed to delete blog post" });
+    }
+  });
+
+  // Portfolio management routes
+  app.get('/api/admin/portfolio-items', async (req, res) => {
+    try {
+      const items = await storage.getPortfolioItems();
+      res.json(items);
+    } catch (error) {
+      console.error("Error fetching portfolio items:", error);
+      res.status(500).json({ message: "Failed to fetch portfolio items" });
+    }
+  });
+
+  app.post('/api/admin/portfolio-items', async (req, res) => {
+    try {
+      const itemData = insertPortfolioItemSchema.parse(req.body);
+      const item = await storage.createPortfolioItem(itemData);
+      res.json(item);
+    } catch (error) {
+      console.error("Error creating portfolio item:", error);
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Invalid portfolio item data", errors: error.errors });
+      } else {
+        res.status(500).json({ message: "Failed to create portfolio item" });
+      }
+    }
+  });
+
+  app.put('/api/admin/portfolio-items/:id', async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const updateData = req.body;
+      const item = await storage.updatePortfolioItem(id, updateData);
+      res.json(item);
+    } catch (error) {
+      console.error("Error updating portfolio item:", error);
+      res.status(500).json({ message: "Failed to update portfolio item" });
+    }
+  });
+
+  app.delete('/api/admin/portfolio-items/:id', async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await storage.deletePortfolioItem(id);
+      res.json({ message: "Portfolio item deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting portfolio item:", error);
+      res.status(500).json({ message: "Failed to delete portfolio item" });
+    }
+  });
+
   // Client Portal Routes
   app.post("/api/client/login", async (req, res) => {
     try {

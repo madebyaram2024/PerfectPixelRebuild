@@ -7,6 +7,8 @@ import {
   clientProjects,
   projectMilestones,
   projectUpdates,
+  blogPosts,
+  portfolioItems,
   type User, 
   type InsertUser,
   type Project,
@@ -22,7 +24,11 @@ import {
   type ProjectMilestone,
   type InsertProjectMilestone,
   type ProjectUpdate,
-  type InsertProjectUpdate
+  type InsertProjectUpdate,
+  type BlogPost,
+  type InsertBlogPost,
+  type PortfolioItem,
+  type InsertPortfolioItem
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, and } from "drizzle-orm";
@@ -64,6 +70,22 @@ export interface IStorage {
   // Admin operations
   getAllClients(): Promise<Client[]>;
   getAllClientProjects(): Promise<ClientProject[]>;
+  
+  // Blog operations
+  getBlogPosts(): Promise<BlogPost[]>;
+  getPublishedBlogPosts(): Promise<BlogPost[]>;
+  getBlogPostBySlug(slug: string): Promise<BlogPost | undefined>;
+  createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
+  updateBlogPost(id: number, updates: Partial<BlogPost>): Promise<BlogPost>;
+  deleteBlogPost(id: number): Promise<void>;
+  
+  // Portfolio operations
+  getPortfolioItems(): Promise<PortfolioItem[]>;
+  getFeaturedPortfolioItems(): Promise<PortfolioItem[]>;
+  getPortfolioItemBySlug(slug: string): Promise<PortfolioItem | undefined>;
+  createPortfolioItem(item: InsertPortfolioItem): Promise<PortfolioItem>;
+  updatePortfolioItem(id: number, updates: Partial<PortfolioItem>): Promise<PortfolioItem>;
+  deletePortfolioItem(id: number): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -217,6 +239,78 @@ export class DatabaseStorage implements IStorage {
 
   async getAllClientProjects(): Promise<ClientProject[]> {
     return await db.select().from(clientProjects).orderBy(clientProjects.createdAt);
+  }
+
+  // Blog operations
+  async getBlogPosts(): Promise<BlogPost[]> {
+    return await db.select().from(blogPosts).orderBy(blogPosts.createdAt);
+  }
+
+  async getPublishedBlogPosts(): Promise<BlogPost[]> {
+    return await db.select().from(blogPosts)
+      .where(eq(blogPosts.status, 'published'))
+      .orderBy(blogPosts.publishedAt);
+  }
+
+  async getBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
+    const [post] = await db.select().from(blogPosts).where(eq(blogPosts.slug, slug));
+    return post;
+  }
+
+  async createBlogPost(insertPost: InsertBlogPost): Promise<BlogPost> {
+    const [post] = await db.insert(blogPosts).values({
+      ...insertPost,
+      updatedAt: new Date()
+    }).returning();
+    return post;
+  }
+
+  async updateBlogPost(id: number, updates: Partial<BlogPost>): Promise<BlogPost> {
+    const [post] = await db.update(blogPosts)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(blogPosts.id, id))
+      .returning();
+    return post;
+  }
+
+  async deleteBlogPost(id: number): Promise<void> {
+    await db.delete(blogPosts).where(eq(blogPosts.id, id));
+  }
+
+  // Portfolio operations
+  async getPortfolioItems(): Promise<PortfolioItem[]> {
+    return await db.select().from(portfolioItems).orderBy(portfolioItems.createdAt);
+  }
+
+  async getFeaturedPortfolioItems(): Promise<PortfolioItem[]> {
+    return await db.select().from(portfolioItems)
+      .where(eq(portfolioItems.featured, true))
+      .orderBy(portfolioItems.createdAt);
+  }
+
+  async getPortfolioItemBySlug(slug: string): Promise<PortfolioItem | undefined> {
+    const [item] = await db.select().from(portfolioItems).where(eq(portfolioItems.slug, slug));
+    return item;
+  }
+
+  async createPortfolioItem(insertItem: InsertPortfolioItem): Promise<PortfolioItem> {
+    const [item] = await db.insert(portfolioItems).values({
+      ...insertItem,
+      updatedAt: new Date()
+    }).returning();
+    return item;
+  }
+
+  async updatePortfolioItem(id: number, updates: Partial<PortfolioItem>): Promise<PortfolioItem> {
+    const [item] = await db.update(portfolioItems)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(portfolioItems.id, id))
+      .returning();
+    return item;
+  }
+
+  async deletePortfolioItem(id: number): Promise<void> {
+    await db.delete(portfolioItems).where(eq(portfolioItems.id, id));
   }
 }
 

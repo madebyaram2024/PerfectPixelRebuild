@@ -90,6 +90,41 @@ export const projectUpdates = pgTable("project_updates", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const blogPosts = pgTable("blog_posts", {
+  id: serial("id").primaryKey(),
+  title: varchar("title", { length: 255 }).notNull(),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  excerpt: text("excerpt").notNull(),
+  content: text("content").notNull(),
+  featuredImage: text("featured_image"),
+  author: varchar("author", { length: 255 }).notNull(),
+  tags: text("tags").array(), // Array of tags
+  status: varchar("status", { length: 50 }).default("draft"), // 'draft', 'published', 'archived'
+  publishedAt: timestamp("published_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const portfolioItems = pgTable("portfolio_items", {
+  id: serial("id").primaryKey(),
+  title: varchar("title", { length: 255 }).notNull(),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  description: text("description").notNull(),
+  shortDescription: text("short_description").notNull(),
+  featuredImage: text("featured_image").notNull(),
+  gallery: text("gallery").array(), // Array of image URLs
+  category: varchar("category", { length: 100 }).notNull(), // 'web-development', 'ecommerce', 'corporate', etc.
+  technologies: text("technologies").array(), // Array of technologies used
+  clientName: varchar("client_name", { length: 255 }),
+  projectUrl: text("project_url"),
+  githubUrl: text("github_url"),
+  status: varchar("status", { length: 50 }).default("active"), // 'active', 'archived', 'featured'
+  featured: boolean("featured").default(false),
+  completedAt: timestamp("completed_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 // Insert schemas
 export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
@@ -131,6 +166,18 @@ export const insertProjectUpdateSchema = createInsertSchema(projectUpdates).omit
   createdAt: true,
 });
 
+export const insertBlogPostSchema = createInsertSchema(blogPosts).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertPortfolioItemSchema = createInsertSchema(portfolioItems).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 // Types
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
@@ -155,3 +202,9 @@ export type ProjectMilestone = typeof projectMilestones.$inferSelect;
 
 export type InsertProjectUpdate = z.infer<typeof insertProjectUpdateSchema>;
 export type ProjectUpdate = typeof projectUpdates.$inferSelect;
+
+export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
+export type BlogPost = typeof blogPosts.$inferSelect;
+
+export type InsertPortfolioItem = z.infer<typeof insertPortfolioItemSchema>;
+export type PortfolioItem = typeof portfolioItems.$inferSelect;
