@@ -1,87 +1,114 @@
 
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+
 export default function ProcessSection() {
   const steps = [
     {
       number: "01",
       title: "Discovery",
-      description: "Initial consultation to understand your needs and goals",
-      icon: "fas fa-search",
-      color: "from-primary to-yellow-600",
-      textColor: "text-primary"
+      description: "We start with a comprehensive consultation to understand your brand, goals, and target audience.",
+      icon: "fas fa-lightbulb",
+      gradient: "from-yellow-400 to-orange-500",
+      bgColor: "bg-yellow-50 dark:bg-yellow-950/20"
     },
     {
       number: "02", 
-      title: "AI Design",
-      description: "Creating your custom design using advanced AI tools",
-      icon: "fas fa-paint-brush",
-      color: "from-accent to-blue-600",
-      textColor: "text-accent"
+      title: "AI-Powered Design",
+      description: "Our AI tools generate multiple design concepts, which our designers refine to perfection.",
+      icon: "fas fa-magic",
+      gradient: "from-blue-400 to-purple-500",
+      bgColor: "bg-blue-50 dark:bg-blue-950/20"
     },
     {
       number: "03",
       title: "Development", 
-      description: "Building your site with cutting-edge technology",
-      icon: "fas fa-laptop-code",
-      color: "from-green-500 to-emerald-600",
-      textColor: "text-green-500"
+      description: "We build your site using the latest technologies, ensuring speed, security, and scalability.",
+      icon: "fas fa-code",
+      gradient: "from-green-400 to-teal-500",
+      bgColor: "bg-green-50 dark:bg-green-950/20"
     },
     {
       number: "04",
-      title: "Launch",
-      description: "Final testing and deployment of your website",
-      icon: "fas fa-globe",
-      color: "from-purple-500 to-violet-600", 
-      textColor: "text-purple-500"
+      title: "Launch & Optimize",
+      description: "After thorough testing, we launch your site and provide ongoing optimization support.",
+      icon: "fas fa-rocket",
+      gradient: "from-purple-400 to-pink-500",
+      bgColor: "bg-purple-50 dark:bg-purple-950/20"
     }
   ];
 
   return (
-    <section className="py-24 relative bg-gradient-to-b from-background to-muted">
+    <section className="py-24 bg-gradient-to-b from-background via-muted/30 to-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">Our Streamlined Process</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            From concept to launch in just 7 days - here's how we make it happen.
+        {/* Header */}
+        <div className="text-center mb-20">
+          <Badge variant="outline" className="mb-4 text-primary border-primary/20">
+            Our Process
+          </Badge>
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+            From Concept to Launch in{" "}
+            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              7 Days
+            </span>
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Our streamlined, AI-enhanced workflow delivers professional websites faster than traditional agencies, 
+            without compromising on quality or creativity.
           </p>
         </div>
         
-        {/* Desktop Timeline */}
-        <div className="hidden lg:block relative">
-          <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent via-green-500 to-purple-500 transform -translate-y-1/2"></div>
-          <div className="grid lg:grid-cols-4 gap-8 relative z-10">
-            {steps.map((step, index) => (
-              <div key={index} className="text-center group">
-                <div className={`w-24 h-24 bg-gradient-to-br ${step.color} rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg relative`}>
-                  <i className={`${step.icon} text-2xl text-white`}></i>
-                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md">
-                    <span className="text-sm font-bold text-gray-800">{step.number}</span>
+        {/* Process Cards */}
+        <div className="grid lg:grid-cols-2 gap-8 mb-16">
+          {steps.map((step, index) => (
+            <Card key={index} className="group hover:shadow-xl transition-all duration-300 border-0 bg-card/50 backdrop-blur-sm">
+              <CardContent className="p-8">
+                <div className="flex items-start space-x-6">
+                  {/* Icon and Number */}
+                  <div className="flex-shrink-0">
+                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                      <i className={`${step.icon} text-white text-xl`}></i>
+                    </div>
+                    <div className="text-center">
+                      <span className="text-3xl font-bold text-muted-foreground/50">{step.number}</span>
+                    </div>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="flex-1 pt-2">
+                    <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors duration-300">
+                      {step.title}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed text-lg">
+                      {step.description}
+                    </p>
                   </div>
                 </div>
-                <div className="bg-white dark:bg-card rounded-xl p-6 shadow-lg group-hover:shadow-xl transition-shadow duration-300 min-h-[160px] flex flex-col text-left">
-                  <h3 className={`text-2xl font-bold mb-4 ${step.textColor}`}>{step.title}</h3>
-                  <p className="text-gray-800 dark:text-gray-700 leading-relaxed flex-1 font-medium">{step.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
-        {/* Mobile Layout */}
-        <div className="lg:hidden space-y-8">
-          {steps.map((step, index) => (
-            <div key={index} className="flex items-start space-x-4">
-              <div className={`w-16 h-16 bg-gradient-to-br ${step.color} rounded-full flex items-center justify-center flex-shrink-0 relative`}>
-                <i className={`${step.icon} text-xl text-white`}></i>
-                <div className="absolute -top-1 -right-1 w-6 h-6 bg-white rounded-full flex items-center justify-center">
-                  <span className="text-xs font-bold text-gray-800">{step.number}</span>
-                </div>
-              </div>
-              <div className="bg-white dark:bg-card rounded-xl p-6 shadow-lg flex-1">
-                <h3 className={`text-xl font-bold mb-3 ${step.textColor}`}>{step.title}</h3>
-                <p className="text-gray-800 dark:text-gray-700 font-medium">{step.description}</p>
-              </div>
+        {/* Timeline Visualization */}
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+          </div>
+          
+          <div className="relative flex justify-center items-center space-x-8 py-8">
+            <div className="flex items-center space-x-8">
+              <div className="w-4 h-4 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 shadow-lg"></div>
+              <div className="w-4 h-4 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 shadow-lg"></div>
+              <div className="w-4 h-4 rounded-full bg-gradient-to-r from-green-400 to-teal-500 shadow-lg"></div>
+              <div className="w-4 h-4 rounded-full bg-gradient-to-r from-purple-400 to-pink-500 shadow-lg"></div>
             </div>
-          ))}
+          </div>
+          
+          <div className="text-center mt-8">
+            <p className="text-sm text-muted-foreground font-medium">
+              Complete project delivery in just one week
+            </p>
+          </div>
         </div>
       </div>
     </section>
